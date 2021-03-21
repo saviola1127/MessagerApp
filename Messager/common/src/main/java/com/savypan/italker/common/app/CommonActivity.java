@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
 
+import butterknife.ButterKnife;
+
 public abstract class CommonActivity extends AppCompatActivity {
 
 
@@ -43,7 +45,7 @@ public abstract class CommonActivity extends AppCompatActivity {
      * init View/widget
      */
     protected void initWidget() {
-
+        ButterKnife.bind(this);
     }
 
     /***
