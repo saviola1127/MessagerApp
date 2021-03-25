@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
 
 import java.util.List;
 
@@ -32,7 +33,6 @@ public abstract class CommonActivity extends AppCompatActivity {
      * init window related content
      */
     protected void initWindows() {
-
     }
 
     /***
