@@ -32,6 +32,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
 
     api "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
+    implementation 'com.android.support:support-v4:28.0.0'
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
 
     implementation project(path: ':common')

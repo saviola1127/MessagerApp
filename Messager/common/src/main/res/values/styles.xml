@@ -36,4 +36,5 @@
     </style>
 
     <style name="AppTheme.Base" parent="Theme.private" />
+
 </resources>

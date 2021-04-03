@@ -141,6 +141,16 @@ public abstract class RecyclerAdapter<T>
 
 
     @Override
+    public void update(T data, ViewHolder<T> holder) {
+        int pos = holder.getAdapterPosition();
+        if (pos >= 0) {
+            mData.remove(pos);
+            mData.add(pos, data);
+            notifyItemChanged(pos);
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         ViewHolder viewHolder = (ViewHolder) v.getTag(R.id.tag_recycler_holder);
         if (mClickListenter != null) {
@@ -209,6 +219,19 @@ public abstract class RecyclerAdapter<T>
             if (callback != null) {
                 callback.update(data, this);
             }
+        }
+    }
+
+    public static abstract class AdapterListenerImpl<T> implements AdapterListener<T> {
+
+        @Override
+        public void onItemClick(ViewHolder viewHolder, T data) {
+
+        }
+
+        @Override
+        public void onItemLongClick(ViewHolder viewHolder, T data) {
+
         }
     }
 }

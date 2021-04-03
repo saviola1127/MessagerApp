@@ -10,8 +10,11 @@
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBar"
+        android:elevation="@dimen/len_2"
+        android:outlineProvider="bounds"
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarWithStatusBarSize">
+
         <FrameLayout
             android:layout_marginTop="@dimen/statusBarSize"
             android:layout_width="match_parent"
@@ -27,7 +30,7 @@
                 android:padding="@dimen/len_4"
                 android:clickable="true"
                 android:src="@drawable/default_portrait"
-                android:tint="@color/text_nav"
+                android:scaleType="centerCrop"
                 android:foreground="@drawable/ic_touch_menu"/>
 
             <TextView
@@ -37,19 +40,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textAppearance="@style/TextAppearance.Title"
                 android:gravity="center" />
 
             <ImageView
                 android:id="@+id/iv_search"
                 android:layout_margin="@dimen/len_4"
                 android:padding="@dimen/len_10"
+                android:scaleType="centerInside"
                 android:layout_gravity="end|center_vertical"
                 android:src="@drawable/ic_search"
                 android:layout_width="@dimen/len_40"
                 android:layout_height="@dimen/len_40"
                 android:clickable="true"
                 android:contentDescription="@string/app_name"
-                android:foreground="@drawable/ic_touch_menu" />
+                android:foreground="@drawable/ic_touch_menu"
+                android:tint="?attr/toolbarMenuIconColor" />
 
         </FrameLayout>
     </android.support.design.widget.AppBarLayout>
@@ -66,6 +72,7 @@
         android:tint="@color/white"
         android:padding="@dimen/len_20"
         app:gBackgroundColor = "@color/colorAccent"
+        android:translationY="@dimen/len_76"
         android:layout_width="@dimen/len_52"
         android:layout_height="@dimen/len_52"
         app:layout_anchor="@id/lay_content"
@@ -76,6 +83,7 @@
         />
 
         <android.support.design.widget.BottomNavigationView
+            tools:visibility="invisible"
             android:background="@color/white"
             android:id="@+id/navigation"
             android:layout_width="match_parent"
