@@ -1,19 +1,19 @@
 package com.savypan.italker.common.app;
 
+import android.app.Application;
 import android.os.SystemClock;
 
 import java.io.File;
 
-public class Application extends android.app.Application {
+public class CommonApplication extends android.app.Application {
 
-    private static Application app;
+    private static CommonApplication app;
 
     @Override
     public void onCreate() {
         super.onCreate();
         app = this;
     }
-
 
     /***
      * get cached folder address

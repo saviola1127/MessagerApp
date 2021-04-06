@@ -6,7 +6,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
-import com.savypan.italker.common.app.Application;
+import com.savypan.italker.common.app.CommonApplication;
 import com.savypan.italker.common.app.CommonFragment;
 import com.savypan.italker.common.widget.PortraitView;
 import com.savypan.italker.push.R;
@@ -40,7 +40,7 @@ public class UpdateInfoFragment extends CommonFragment {
                 options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
                 options.setCompressionQuality(96);
 
-                File desPath = Application.getPortraitTmpFile();
+                File desPath = CommonApplication.getPortraitTmpFile();
                 UCrop.of(Uri.fromFile(new File(path)), Uri.fromFile(desPath))
                         .withAspectRatio(1, 1) //1:1比例
                         .withMaxResultSize(520, 520) //返回最大尺寸
