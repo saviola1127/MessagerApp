@@ -16,12 +16,6 @@ import com.savypan.italker.push.R;
  */
 public class GroupFragment extends CommonFragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-
     @Override
     protected int getContentLayoutId() {
         return R.layout.fragment_group;

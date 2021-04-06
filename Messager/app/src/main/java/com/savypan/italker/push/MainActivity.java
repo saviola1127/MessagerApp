@@ -23,6 +23,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.savypan.italker.common.app.CommonActivity;
 import com.savypan.italker.common.widget.PortraitView;
+import com.savypan.italker.push.activities.AccountActivity;
 import com.savypan.italker.push.fragment.home.ActiveFragment;
 import com.savypan.italker.push.fragment.home.ContactFragment;
 import com.savypan.italker.push.fragment.home.GroupFragment;
@@ -108,7 +109,7 @@ public class MainActivity extends CommonActivity
 
     @OnClick(R.id.btn_add)
     void onGroupAdd() {
-
+        AccountActivity.show(this);
     }
 
     /***

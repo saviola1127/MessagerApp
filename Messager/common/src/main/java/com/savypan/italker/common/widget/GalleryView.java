@@ -18,8 +18,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -76,6 +78,7 @@ public class GalleryView extends RecyclerView {
                 }
             }
         });
+        Log.e("SAVY", "init and set LayoutManager");
     }
 
     /***
@@ -83,6 +86,7 @@ public class GalleryView extends RecyclerView {
      * @param loaderManager
      */
     public int setup(LoaderManager loaderManager, ISelectedImageChangedListener listener) {
+        Log.e("SAVY", "Fragment setup now");
         this.listener = listener;
         loaderManager.initLoader(LOADER_ID, null, callback);
         return LOADER_ID;
@@ -131,6 +135,10 @@ public class GalleryView extends RecyclerView {
             notifyRefresh = true;
         } else {
             if (selectedImages.size() >= MAX_SELECTED_AMOUNT) {
+
+                String str = getResources().getString(R.string.label_gallery_select_max_size);
+                str = String.format(str, MAX_SELECTED_AMOUNT);
+                Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
                 notifyRefresh = false;
             } else {
                 selectedImages.add(image);
@@ -181,6 +189,7 @@ public class GalleryView extends RecyclerView {
 
         @Override
         protected ViewHolder<Image> onCreateViewHolder(View view, int viewType) {
+            Log.e("SAVY", "create View Holder for each image");
             return new GalleryView.ViewHolder(view);
         }
 
@@ -197,16 +206,16 @@ public class GalleryView extends RecyclerView {
         private View myShader;
         private CheckBox mySelecting;
 
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            myPic = findViewById(R.id.image);
-            myShader = findViewById(R.id.view_shader);
-            mySelecting = findViewById(R.id.cb_select);
+            myPic = itemView.findViewById(R.id.image);
+            myShader = itemView.findViewById(R.id.view_shader);
+            mySelecting = itemView.findViewById(R.id.cb_select);
         }
 
         @Override
         protected void onBind(Image data) {
+            Log.e("SAVY", "bind data for each image");
             //image loading for rendering
             Glide.with(getContext())
                     .load(data.path)
@@ -217,6 +226,7 @@ public class GalleryView extends RecyclerView {
 
             myShader.setVisibility(data.isSelected?VISIBLE:INVISIBLE);
             mySelecting.setChecked(data.isSelected);
+            mySelecting.setVisibility(VISIBLE);
         }
     }
 
@@ -244,6 +254,7 @@ public class GalleryView extends RecyclerView {
         @NonNull
         @Override
         public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle bundle) {
+            Log.e("SAVY", "create Loader now!");
             if (id == LOADER_ID) {
                 return new CursorLoader(
                         getContext(),
@@ -292,6 +303,7 @@ public class GalleryView extends RecyclerView {
                 }
             }
 
+            Log.e("SAVY", "finish Loading Images for dataSet");
             updateUISource(images);
         }
 
