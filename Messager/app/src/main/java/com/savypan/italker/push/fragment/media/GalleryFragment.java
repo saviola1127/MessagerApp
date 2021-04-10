@@ -80,7 +80,7 @@ implements GalleryView.ISelectedImageChangedListener{
     }
 
 
-    private static class TransStatusBottomSheetDialog extends BottomSheetDialog {
+    public static class TransStatusBottomSheetDialog extends BottomSheetDialog {
 
         public TransStatusBottomSheetDialog(@NonNull Context context) {
             super(context);
@@ -102,8 +102,6 @@ implements GalleryView.ISelectedImageChangedListener{
             if (window == null) {
                 return;
             }
-
-
 
             int screenHeight = UiTool.getScreenHeight(getOwnerActivity());
             int statusHeight = UiTool.getStatusBarHeight(getOwnerActivity());

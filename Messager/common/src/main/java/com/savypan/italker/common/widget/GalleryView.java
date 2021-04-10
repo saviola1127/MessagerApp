@@ -78,7 +78,7 @@ public class GalleryView extends RecyclerView {
                 }
             }
         });
-        Log.e("SAVY", "init and set LayoutManager");
+        //Log.e("SAVY", "init and set LayoutManager");
     }
 
     /***
@@ -86,7 +86,7 @@ public class GalleryView extends RecyclerView {
      * @param loaderManager
      */
     public int setup(LoaderManager loaderManager, ISelectedImageChangedListener listener) {
-        Log.e("SAVY", "Fragment setup now");
+        //Log.e("SAVY", "Fragment setup now");
         this.listener = listener;
         loaderManager.initLoader(LOADER_ID, null, callback);
         return LOADER_ID;
@@ -189,7 +189,7 @@ public class GalleryView extends RecyclerView {
 
         @Override
         protected ViewHolder<Image> onCreateViewHolder(View view, int viewType) {
-            Log.e("SAVY", "create View Holder for each image");
+            //Log.e("SAVY", "create View Holder for each image");
             return new GalleryView.ViewHolder(view);
         }
 
@@ -215,7 +215,7 @@ public class GalleryView extends RecyclerView {
 
         @Override
         protected void onBind(Image data) {
-            Log.e("SAVY", "bind data for each image");
+            //Log.e("SAVY", "bind data for each image");
             //image loading for rendering
             Glide.with(getContext())
                     .load(data.path)
@@ -254,7 +254,7 @@ public class GalleryView extends RecyclerView {
         @NonNull
         @Override
         public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle bundle) {
-            Log.e("SAVY", "create Loader now!");
+            //Log.e("SAVY", "create Loader now!");
             if (id == LOADER_ID) {
                 return new CursorLoader(
                         getContext(),
@@ -303,7 +303,7 @@ public class GalleryView extends RecyclerView {
                 }
             }
 
-            Log.e("SAVY", "finish Loading Images for dataSet");
+            //Log.e("SAVY", "finish Loading Images for dataSet");
             updateUISource(images);
         }
 

@@ -1,19 +1,15 @@
-package com.savypan.italker.push;
+package com.savypan.italker.push.activities;
 
-import android.animation.TimeInterpolator;
-import android.app.Activity;
-import android.content.pm.PackageManager;
-import android.provider.Contacts;
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnticipateInterpolator;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -23,7 +19,8 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.savypan.italker.common.app.CommonActivity;
 import com.savypan.italker.common.widget.PortraitView;
-import com.savypan.italker.push.activities.AccountActivity;
+import com.savypan.italker.push.R;
+import com.savypan.italker.push.fragment.assist.PermFragment;
 import com.savypan.italker.push.fragment.home.ActiveFragment;
 import com.savypan.italker.push.fragment.home.ContactFragment;
 import com.savypan.italker.push.fragment.home.GroupFragment;
@@ -65,6 +62,11 @@ public class MainActivity extends CommonActivity
     }
 
 
+    public static void show(Context context) {
+        context.startActivity(new Intent(context, MainActivity.class));
+    }
+
+
     @Override
     protected void initData() {
         super.initData();
@@ -78,7 +80,7 @@ public class MainActivity extends CommonActivity
     protected void initWidget() {
         super.initWidget();
 
-        verifyStoragePermissions(this);
+        //verifyStoragePermissions(this);
 
         navHelper = new NavHelper<>(this, R.id.lay_content, getSupportFragmentManager(), this);
         navHelper.add(R.id.action_home,
@@ -99,6 +101,8 @@ public class MainActivity extends CommonActivity
                         this.view.setBackground(resource.getCurrent());
                     }
                 });
+
+        //PermFragment.hasAllPerm(this, getSupportFragmentManager());
     }
 
 
@@ -119,6 +123,7 @@ public class MainActivity extends CommonActivity
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        Log.e("SAVY", "menuItem =>" + menuItem.toString());
         return navHelper.performClickMenu(menuItem.getItemId());
     }
 
