@@ -9,6 +9,8 @@ import com.bumptech.glide.Glide;
 import com.savypan.italker.common.app.CommonApplication;
 import com.savypan.italker.common.app.CommonFragment;
 import com.savypan.italker.common.widget.PortraitView;
+import com.savypan.italker.factory.Factory;
+import com.savypan.italker.factory.network.UploadHelper;
 import com.savypan.italker.push.R;
 import com.savypan.italker.push.fragment.media.GalleryFragment;
 import com.yalantis.ucrop.UCrop;
@@ -63,10 +65,23 @@ public class UpdateInfoFragment extends CommonFragment {
     }
 
     private void loadPortrait(Uri uri) {
+
         Glide.with(this)
                 .load(uri)
                 .asBitmap()
                 .centerCrop()
                 .into(portraitView);
+
+        //拿到本地文件的地址
+        final String localPath = uri.getPath();
+        Log.e("SAVY", "local Path " + localPath);
+
+        Factory.runOnAsync(new Runnable() {
+            @Override
+            public void run() {
+                String url = UploadHelper.uploadPortrait(localPath);
+                Log.e("SAVY", "OSS Url:" + url);
+            }
+        });
     }
 }

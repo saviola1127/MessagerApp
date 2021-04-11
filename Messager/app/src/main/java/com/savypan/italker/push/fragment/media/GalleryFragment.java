@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ implements GalleryView.ISelectedImageChangedListener{
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
         galleryView = root.findViewById(R.id.gallery_view);
+        //Log.e("SAVY", "current Activity for gallery is " + getActivity().getLocalClassName());
         return root;
     }
 

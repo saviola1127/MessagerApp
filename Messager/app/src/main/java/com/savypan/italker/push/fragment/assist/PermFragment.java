@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ public class PermFragment extends BottomSheetDialogFragment implements EasyPermi
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        //Log.e("SAVY", "current Activity is " + getActivity().getLocalClassName());
         return new GalleryFragment.TransStatusBottomSheetDialog(getContext());
     }
 
