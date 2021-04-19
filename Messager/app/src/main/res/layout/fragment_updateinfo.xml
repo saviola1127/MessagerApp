@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.savypan.italker.push.fragment.account.UpdateInfoFragment" >
+    tools:context="com.savypan.italker.push.fragment.user.UpdateInfoFragment" >
 
     <com.savypan.italker.common.widget.PortraitView
         android:id="@+id/image_pv"

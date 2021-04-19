@@ -1,4 +1,4 @@
-package com.savypan.italker.push.fragment.account;
+package com.savypan.italker.push.fragment.user;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
