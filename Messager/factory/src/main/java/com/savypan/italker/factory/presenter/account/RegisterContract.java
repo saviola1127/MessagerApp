@@ -1,7 +1,5 @@
 package com.savypan.italker.factory.presenter.account;
 
-import android.support.annotation.StringRes;
-
 import com.savypan.italker.factory.presenter.BaseContract;
 
 public interface RegisterContract {

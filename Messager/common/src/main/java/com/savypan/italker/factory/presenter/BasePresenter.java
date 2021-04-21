@@ -2,7 +2,7 @@ package com.savypan.italker.factory.presenter;
 
 public class BasePresenter<T extends BaseContract.IView> implements BaseContract.IPresenter {
 
-    protected T myView;
+    private T myView;
 
     public BasePresenter(T view) {
         setView(view);
@@ -10,6 +10,7 @@ public class BasePresenter<T extends BaseContract.IView> implements BaseContract
 
     protected void setView(T view) {
         myView = view;
+        myView.setPresenter(this);
     }
 
 

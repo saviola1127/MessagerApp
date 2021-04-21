@@ -13,7 +13,7 @@ public interface LoginContract {
         //显示进度条
         void showLoading();
 
-        void setPresenter(RegisterContract.IPresenter presenter);
+        //void setPresenter(Login.IPresenter presenter);
     }
 
     interface IPresenter extends BaseContract.IPresenter {
