@@ -1,8 +1,8 @@
 package com.savypan.italker.push;
 
-import android.security.NetworkSecurityPolicy;
-
+import com.igexin.sdk.PushManager;
 import com.savypan.italker.common.app.CommonApplication;
+import com.savypan.italker.factory.Factory;
 
 public class App extends CommonApplication {
 
@@ -10,6 +10,8 @@ public class App extends CommonApplication {
     public void onCreate() {
         super.onCreate();
 
-        //NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted("http://192.168.50.72:8080");
+        Factory.setup();
+
+        PushManager.getInstance().initialize(this, AppPushService.class);
     }
 }

@@ -14,6 +14,18 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //个推相关参数
+        manifestPlaceholders = [
+                GETUI_APP_ID    : "xfeA8x9Lzs6HadCFEEHK99",
+                GETUI_APP_KEY   : "qA9SU0fxi2AtKcGZo0NDZ",
+                GETUI_APP_SECRET: "TOE1By69uu6l5V0lFA6qi7",
+                PACKAGE_NAME    : applicationId
+        ]
+
+        ndk {
+            abiFilters "x86", "x86_64", "arm64-v8a", "armeabi-v7a", 'armeabi'
+        }
     }
 
     buildTypes {
@@ -36,6 +48,11 @@ dependencies {
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
     implementation 'android.arch.navigation:navigation-ui:1.0.0'
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
+
+    // 个推
+    api "com.getui:sdk:$rootProject.ext.getuiVersion"
+    // 空气面板
+    api "net.qiujuer.widget:airpanel:$rootProject.ext.airpanelVersion"
 
     implementation 'com.android.support:appcompat-v7:28.0.0'
     api "com.android.support:design:$rootProject.ext.supportVersion"

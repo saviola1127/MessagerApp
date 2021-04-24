@@ -83,7 +83,6 @@
         />
 
         <android.support.design.widget.BottomNavigationView
-            tools:visibility="invisible"
             android:background="@color/white"
             android:id="@+id/navigation"
             android:layout_width="match_parent"
