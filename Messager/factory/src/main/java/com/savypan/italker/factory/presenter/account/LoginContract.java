@@ -20,6 +20,6 @@ public interface LoginContract {
         //注册成功
         void login(String phone, String password);
         //检查手机号是否正确
-        boolean checkMobile(String phone);
+        boolean checkMobile(String phone, String password);
     }
 }

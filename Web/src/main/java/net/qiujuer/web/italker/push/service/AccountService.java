@@ -73,6 +73,12 @@ public class AccountService extends BaseService {
         user = UserFactory.register(model.getAccount(), model.getPassword(), model.getName());
 
         if (user != null) {
+
+            // 如果有携带PushId
+            if (!Strings.isNullOrEmpty(model.getPushId())) {
+                return bind(user, model.getPushId());
+            }
+
             AccountRspModel rspModel = new AccountRspModel(user);
             return ResponseModel.buildOk(rspModel);
         }

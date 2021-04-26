@@ -12,6 +12,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Property;
 import android.view.View;
 
@@ -28,6 +29,7 @@ public class LaunchActivity extends CommonActivity {
 
     //Drawable
     private ColorDrawable drawableBkg;
+    private String TAG = LaunchActivity.class.getSimpleName();
 
     @Override
     protected int getContentLayoutId() {
@@ -56,6 +58,7 @@ public class LaunchActivity extends CommonActivity {
         startAnimation(0.5f, new Runnable() {
             @Override
             public void run() {
+                Log.e(TAG, "initData - start waiting for pushID");
                 waitForPushId();
             }
         });
@@ -67,13 +70,17 @@ public class LaunchActivity extends CommonActivity {
     private void waitForPushId() {
 
         if (Account.isLogin()) {
+            Log.e(TAG, "waitforpushId - starting");
             if (Account.isBound()) {
+                Log.e(TAG, "waitforpushId - isBound");
                 skip();
                 return;
             }
         } else {
             //没有登录的情况下不允许绑定pushID
+            Log.e(TAG, "waitforpushId - not login...");
             if (!TextUtils.isEmpty(Account.getPushId())) {
+                Log.e(TAG, "waitforpushId - getPushId now");
                 skip();
                 return;
             }
@@ -82,6 +89,7 @@ public class LaunchActivity extends CommonActivity {
         getWindow().getDecorView().postDelayed(new Runnable() {
             @Override
             public void run() {
+                Log.e(TAG, "waitforpushId - continue waiting");
                 waitForPushId();
             }
          }, 500);
@@ -104,8 +112,10 @@ public class LaunchActivity extends CommonActivity {
         if (PermFragment.hasAllPerm(this, getSupportFragmentManager())) {
 
             if (Account.isLogin()) {
+                Log.e(TAG, "jumpOut - already login...");
                 MainActivity.show(this);
             } else {
+                Log.e(TAG, "jumpOut - not login...");
                 AccountActivity.show(this);
             }
 

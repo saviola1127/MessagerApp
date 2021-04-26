@@ -142,7 +142,6 @@ public class Factory {
     public static void setup() {
         //数据库初始化
         FlowManager.init(new FlowConfig.Builder(getApplication()).openDatabasesOnInit(true).build());
-
         Account.load(getApplication());
     }
 }

@@ -4,6 +4,7 @@ package com.savypan.italker.factory.persistence;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.savypan.italker.factory.Factory;
@@ -18,6 +19,7 @@ public class Account {
     private static final String KEY_TOKEN = "KEY_TOKEN";
     private static final String KEY_USER_ID = "KEY_USER_ID";
     private static final String KEY_ACCOUNT = "KEY_ACCOUNT";
+    private static final String TAG = Account.class.getSimpleName();
 
     private static boolean isBound = false;
     private static String token; //登录状态的token
@@ -38,6 +40,12 @@ public class Account {
                 .putString(KEY_USER_ID, userId)
                 .putString(KEY_TOKEN, token)
                 .apply();
+
+        Log.e(TAG, "saved - pushId as " + pushId);
+        Log.e(TAG, "saved - isBound as " + isBound);
+        Log.e(TAG, "saved - account as " + account);
+        Log.e(TAG, "saved - userId as " + userId);
+        Log.e(TAG, "saved - token as " + token);
     }
 
 
@@ -49,6 +57,12 @@ public class Account {
         account = sp.getString(KEY_ACCOUNT, "");
         userId = sp.getString(KEY_USER_ID, "");
         token = sp.getString(KEY_TOKEN, "");
+
+        Log.e(TAG, "loaded - pushId as " + pushId);
+        Log.e(TAG, "loaded - isBound as " + isBound);
+        Log.e(TAG, "loaded - account as " + account);
+        Log.e(TAG, "loaded - userId as " + userId);
+        Log.e(TAG, "loaded - token as " + token);
     }
 
 
@@ -89,7 +103,7 @@ public class Account {
      * @return
      */
     public static boolean isBound() {
-        return false;
+        return isBound;
     }
 
 

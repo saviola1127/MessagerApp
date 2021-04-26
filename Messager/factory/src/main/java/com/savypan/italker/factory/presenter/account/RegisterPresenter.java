@@ -8,6 +8,7 @@ import com.savypan.italker.factory.R;
 import com.savypan.italker.factory.data.IDataSource;
 import com.savypan.italker.factory.data.helper.AccountHelper;
 import com.savypan.italker.factory.model.api.account.RegisterModel;
+import com.savypan.italker.factory.persistence.Account;
 import com.savypan.italker.factory.presenter.BasePresenter;
 import com.savypan.italker.factory.model.db.User;
 
@@ -30,7 +31,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.IView>
 
         RegisterContract.IView view = getView();
 
-        if (!checkMobile(phone)) {
+        if (!checkMobile(phone, password, name)) {
             //提示用户
             view.showError(R.string.data_account_register_invalid_parameter_mobile);
         } else if (name.length() < 2) {
@@ -41,16 +42,18 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.IView>
             view.showError(R.string.data_account_register_invalid_parameter_password);
         } else {
             //进行网络请求
-            RegisterModel model = new RegisterModel(phone, password, name, null);
+            RegisterModel model = new RegisterModel(phone, password, name, Account.getPushId());
             AccountHelper.register(model, this);
         }
     }
 
     @Override
-    public boolean checkMobile(String phone) {
+    public boolean checkMobile(String phone, String password, String name) {
         //手机号不为空并且满足相应的格式
         return !TextUtils.isEmpty(phone)
-                && Pattern.matches(Common.Constant.REGEX_MOBILE, phone);
+                && Pattern.matches(Common.Constant.REGEX_MOBILE, phone)
+                && !TextUtils.isEmpty(password)
+                && !TextUtils.isEmpty(name);
     }
 
     @Override

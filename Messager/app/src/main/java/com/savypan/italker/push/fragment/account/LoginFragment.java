@@ -31,10 +31,10 @@ implements LoginContract.IView {
 
     private IAccountTrigger accountTrigger;
 
-    @BindView(R.id.et_phone)
+    @BindView(R.id.edit_phone)
     EditText phone;
 
-    @BindView(R.id.et_password)
+    @BindView(R.id.edit_password)
     EditText pwd;
 
     @BindView(R.id.loading)

@@ -21,4 +21,9 @@ public class Network {
                 .addConverterFactory(GsonConverterFactory.create(Factory.getGson()))
                 .build();
     }
+
+
+    public static IRemoteService remoteService() {
+        return Network.getRetrofit().create(IRemoteService.class);
+    }
 }
