@@ -75,17 +75,37 @@ implements LoginContract.IView {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        //默认切换为注册界面
-        accountTrigger.triggerView();
-    }
-
-    @Override
     public void loginSuccess() {
         //login成功，账户已经登陆成功，我们需要进行跳转到activity界面
         MainActivity.show(getContext());
         getActivity().finish();
+    }
+
+    @Override
+    public void showLoading() {
+        super.showLoading();
+
+        //正在等待中… 界面不可操作
+        myLoading.start();
+        //控件不可以输入
+        phone.setEnabled(false);
+        pwd.setEnabled(false);
+
+        //按钮不能重复点击
+        submit.setEnabled(false);
+    }
+
+
+    @Override
+    public void showError(int str) {
+        super.showError(str);
+
+        myLoading.stop();
+        //恢复控件可以输入
+        phone.setEnabled(true);
+        pwd.setEnabled(true);
+
+        //按钮不能重复点击
+        submit.setEnabled(true);
     }
 }

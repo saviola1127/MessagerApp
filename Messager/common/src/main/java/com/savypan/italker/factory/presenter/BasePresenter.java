@@ -13,11 +13,9 @@ public class BasePresenter<T extends BaseContract.IView> implements BaseContract
         myView.setPresenter(this);
     }
 
-
     protected final T getView() {
         return myView;
     }
-
 
     @Override
     public void start() {

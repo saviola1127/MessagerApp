@@ -27,12 +27,12 @@ public class ActiveFragment extends CommonFragment {
     protected void initData() {
         super.initData();
 
-        galleryView.setup(getLoaderManager(),
-                new GalleryView.ISelectedImageChangedListener() {
-            @Override
-            public void onSelectedCountChanged(int count) {
-
-            }
-        });
+//        galleryView.setup(getLoaderManager(),
+//                new GalleryView.ISelectedImageChangedListener() {
+//            @Override
+//            public void onSelectedCountChanged(int count) {
+//
+//            }
+//        });
     }
 }

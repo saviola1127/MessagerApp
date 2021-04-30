@@ -2,6 +2,7 @@ package com.savypan.italker.push.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +20,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.savypan.italker.common.app.CommonActivity;
 import com.savypan.italker.common.widget.PortraitView;
+import com.savypan.italker.factory.persistence.Account;
 import com.savypan.italker.push.R;
 import com.savypan.italker.push.fragment.assist.PermFragment;
 import com.savypan.italker.push.fragment.home.ActiveFragment;
@@ -75,6 +77,16 @@ public class MainActivity extends CommonActivity
         menu.performIdentifierAction(R.id.action_home, 0);
     }
 
+
+    @Override
+    protected boolean initArgs(Bundle bundle) {
+        if (Account.isCompleted()) {
+            return super.initArgs(bundle);
+        } else {
+            UserActivity.show(this);
+            return false;
+        }
+    }
 
     @Override
     protected void initWidget() {

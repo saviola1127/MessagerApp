@@ -71,7 +71,12 @@ public class Account {
      * @return
      */
     public static boolean isCompleted() {
-        //TODO
+        if (isLogin()) {
+            User user = getUser();
+            return !TextUtils.isEmpty(user.getDes())
+                    && !TextUtils.isEmpty(user.getPortrait())
+                    && user.getSex() != 0;
+        }
         return isLogin();
     }
 
@@ -132,5 +137,9 @@ public class Account {
                         .from(User.class)
                         .where(User_Table.id.eq(userId))
                 .querySingle();
+    }
+
+    public static String getToken() {
+        return token;
     }
 }

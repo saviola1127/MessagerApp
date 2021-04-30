@@ -103,12 +103,6 @@ public class AccountService extends BaseService {
         //User user = UserFactory.findByToken(token);
         User user = getSelf();
         return bind(user, pushId);
-//        if (user != null) {
-//            return bind(user, pushId);
-//        } else {
-//            //账户异常
-//            return ResponseModel.buildAccountError();
-//        }
     }
 
 

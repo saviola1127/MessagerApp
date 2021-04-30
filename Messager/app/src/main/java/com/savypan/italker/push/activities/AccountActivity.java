@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -28,12 +29,13 @@ public class AccountActivity extends CommonActivity implements IAccountTrigger {
     private Fragment loginFragment;
     private Fragment registerFragment;
 
+    private static final String TAG = AccountActivity.class.getSimpleName();
+
     @BindView(R.id.im_bg)
     ImageView bg;
 
     public static void show(Context context){
-        context.startActivity(new Intent(
-                context, AccountActivity.class));
+        context.startActivity(new Intent(context, AccountActivity.class));
     }
 
     @Override
@@ -67,7 +69,7 @@ public class AccountActivity extends CommonActivity implements IAccountTrigger {
 
                         this.view.setImageDrawable(drawable);
                     }
-                });//*/
+                });
     }
 
     @Override
@@ -77,9 +79,11 @@ public class AccountActivity extends CommonActivity implements IAccountTrigger {
 
     @Override
     public void triggerView() {
-        Fragment current;
+        Fragment current = null;
         if (fragment == loginFragment) {
             if (registerFragment == null) {
+                //默认情况下为null，
+                //第一次之后就不为null了
                 registerFragment = new RegisterFragment();
             }
 

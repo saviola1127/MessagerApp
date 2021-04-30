@@ -2,6 +2,7 @@ package com.savypan.italker.push.fragment.account;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.savypan.italker.common.app.PresenterFragment;
@@ -41,6 +42,8 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.IPresen
     @BindView(R.id.btn_submit)
     Button submit;
 
+    private static final String TAG = RegisterFragment.class.getSimpleName();
+
     @Override
     protected RegisterContract.IPresenter initPresenter() {
         return new RegisterPresenter(this);
@@ -67,6 +70,7 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.IPresen
 
     @OnClick(R.id.tv_gotologin)
     void onShowLogin() {
+        Log.i(TAG, "clicked the login entry");
         accountTrigger.triggerView();
     }
 

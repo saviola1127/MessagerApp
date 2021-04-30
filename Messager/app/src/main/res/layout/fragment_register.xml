@@ -167,6 +167,7 @@
             android:layout_marginEnd="@dimen/len_16"
             android:text="@string/label_go_login"
             android:gravity="center"
+            android:clickable="true"
             android:textSize="@dimen/font_14"
             android:textColor="@color/white"
             android:textStyle="bold"/>

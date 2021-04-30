@@ -118,9 +118,10 @@
         <TextView
             android:id="@+id/txt_go_register"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="end|center_vertical"
             android:layout_marginEnd="@dimen/len_16"
+            android:clickable="true"
             android:gravity="center"
             android:text="@string/label_go_register"
             android:textColor="@color/white"
