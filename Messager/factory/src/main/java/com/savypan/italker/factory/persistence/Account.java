@@ -20,7 +20,6 @@ public class Account {
     private static final String KEY_TOKEN = "KEY_TOKEN";
     private static final String KEY_USER_ID = "KEY_USER_ID";
     private static final String KEY_ACCOUNT = "KEY_ACCOUNT";
-    private static final String TAG = Account.class.getSimpleName();
 
     private static boolean isBound = false;
     private static String token; //登录状态的token
