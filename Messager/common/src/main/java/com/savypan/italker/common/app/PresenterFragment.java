@@ -20,12 +20,19 @@ implements BaseContract.IView<Presenter> {
 
     @Override
     public void showError(int str) {
-        CommonApplication.showToast(str);
+        if (mPlaceHolderView != null) {
+            mPlaceHolderView.triggerError(str);
+        } else {
+            CommonApplication.showToast(str);
+        }
+
     }
 
     @Override
     public void showLoading() {
-        //TODO
+        if (mPlaceHolderView != null) {
+            mPlaceHolderView.triggerLoading();
+        }
     }
 
     @Override

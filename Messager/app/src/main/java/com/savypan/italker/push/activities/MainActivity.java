@@ -30,6 +30,8 @@ import com.savypan.italker.push.helper.NavHelper;
 
 import net.qiujuer.genius.ui.Ui;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -120,11 +122,21 @@ public class MainActivity extends CommonActivity
 
     @OnClick(R.id.iv_search)
     void onSearchMenuClick(){
-
+        int type = Objects.equals(navHelper.getCurrentTab().extra, R.string.title_group)? SearchActivity.TYPE_GROUP:SearchActivity.TYPE_USER;
+        SearchActivity.show(this, type);
     }
 
     @OnClick(R.id.btn_add)
     void onGroupAdd() {
+
+        //浮动按钮判断当前界面是群还是联系人
+        //如果是群，则打开群界面
+        if (Objects.equals(navHelper.getCurrentTab().extra, R.string.title_group)) {
+            //TODO 打开群界面
+        } else {
+            //如果是人，就进入联系人界面；
+            SearchActivity.show(this, SearchActivity.TYPE_USER);
+        }
         AccountActivity.show(this);
     }
 

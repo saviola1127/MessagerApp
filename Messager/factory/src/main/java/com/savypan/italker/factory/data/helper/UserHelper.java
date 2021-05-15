@@ -9,6 +9,9 @@ import com.savypan.italker.factory.model.card.UserCard;
 import com.savypan.italker.factory.model.db.User;
 import com.savypan.italker.factory.network.IRemoteService;
 import com.savypan.italker.factory.network.Network;
+import com.savypan.italker.factory.presenter.contact.FollowingPresenter;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,5 +57,60 @@ public class UserHelper {
                 callback.onDataFailed(R.string.data_network_error);
             }
         }
+    }
+
+    //搜索的方法网络实现
+    public static Call search(String name, IDataSource.ICallback<List<UserCard>> callback) {
+        IRemoteService service = Network.remoteService();
+        Call<RspModel<List<UserCard>>> call = service.userSearch(name);
+        //异步的请求
+        call.enqueue(new Callback<RspModel<List<UserCard>>>() {
+            @Override
+            public void onResponse(Call<RspModel<List<UserCard>>> call, Response<RspModel<List<UserCard>>> response) {
+                RspModel<List<UserCard>> rspModel = response.body();
+                if (response.isSuccessful()) {
+                    //返回搜索的数据即可
+                    callback.onDataLoaded(rspModel.getResult());
+                } else {
+                    Factory.decodeResponseCode(rspModel, callback);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RspModel<List<UserCard>>> call, Throwable t) {
+                callback.onDataFailed(R.string.data_network_error);
+            }
+        });
+
+        return call;
+    }
+
+    public static void follow(String id, IDataSource.ICallback<UserCard> callback) {
+        IRemoteService service = Network.remoteService();
+        Call<RspModel<UserCard>> call = service.userFollow(id);
+        //异步的请求
+        call.enqueue(new Callback<RspModel<UserCard>>() {
+            @Override
+            public void onResponse(Call<RspModel<UserCard>> call, Response<RspModel<UserCard>> response) {
+                RspModel<UserCard> rspModel = response.body();
+                if (response.isSuccessful()) {
+                    //返回搜索的数据即可
+                    UserCard userCard = rspModel.getResult();
+                    User user = userCard.build();
+                    user.save();
+
+                    //TODO 通知联系人刷新
+
+                    callback.onDataLoaded(userCard);
+                } else {
+                    Factory.decodeResponseCode(rspModel, callback);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RspModel<UserCard>> call, Throwable t) {
+                callback.onDataFailed(R.string.data_network_error);
+            }
+        });
     }
 }
