@@ -35,7 +35,7 @@ public class User extends BaseModel {
     private int sex = 0;
 
     @Column
-    private String modifyAt;
+    private Date modifyAt;
 
     @Column
     private int followers;
@@ -97,11 +97,11 @@ public class User extends BaseModel {
         this.sex = sex;
     }
 
-    public String getModifyAt() {
+    public Date getModifyAt() {
         return modifyAt;
     }
 
-    public void setModifyAt(String modifyAt) {
+    public void setModifyAt(Date modifyAt) {
         this.modifyAt = modifyAt;
     }
 
@@ -135,5 +135,22 @@ public class User extends BaseModel {
 
     public void setAlias(String alias) {
         this.alias = alias;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", portrait='" + portrait + '\'' +
+                ", des='" + des + '\'' +
+                ", sex=" + sex +
+                ", modifyAt=" + modifyAt +
+                ", followers=" + followers +
+                ", followings=" + followings +
+                ", isFollowed=" + isFollowed +
+                ", alias='" + alias + '\'' +
+                '}';
     }
 }

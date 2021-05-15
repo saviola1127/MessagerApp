@@ -12,6 +12,10 @@ import com.savypan.italker.factory.model.db.User;
 import com.savypan.italker.factory.network.UploadHelper;
 import com.savypan.italker.factory.presenter.BaseContract;
 import com.savypan.italker.factory.presenter.BasePresenter;
+import com.savypan.italker.factory.presenter.account.LoginContract;
+
+import net.qiujuer.genius.kit.handler.Run;
+import net.qiujuer.genius.kit.handler.runable.Action;
 
 public class UpdateInfoPresenter extends BasePresenter<UpdateInfoContract.IView>
 implements UpdateInfoContract.IPresenter, IDataSource.ICallback {
@@ -59,11 +63,31 @@ implements UpdateInfoContract.IPresenter, IDataSource.ICallback {
 
     @Override
     public void onDataLoaded(Object o) {
-
+        UpdateInfoContract.IView view = getView();
+        if (view == null) {
+            return;
+        }
+        Run.onUiAsync(new Action() {
+            @Override
+            public void call() {
+                view.updateSuccess();
+            }
+        });
     }
 
     @Override
     public void onDataFailed(int strId) {
+        UpdateInfoContract.IView view = getView();
+        if (view == null) {
+            return;
+        }
 
+        //此时是从网络回来，并不能保证是在主线程
+        Run.onUiAsync(new Action() {
+            @Override
+            public void call() {
+                view.showError(strId);
+            }
+        });
     }
 }

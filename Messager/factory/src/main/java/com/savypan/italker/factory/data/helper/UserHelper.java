@@ -4,7 +4,6 @@ import com.savypan.italker.factory.Factory;
 import com.savypan.italker.factory.R;
 import com.savypan.italker.factory.data.IDataSource;
 import com.savypan.italker.factory.model.api.RspModel;
-import com.savypan.italker.factory.model.api.account.AccountRspModel;
 import com.savypan.italker.factory.model.api.user.UserUpdateModel;
 import com.savypan.italker.factory.model.card.UserCard;
 import com.savypan.italker.factory.model.db.User;
@@ -22,7 +21,7 @@ public class UserHelper {
         //异步的请求
         call.enqueue(new UserHelper.UserRspCallback(callback));
     }
-    
+
 
     private static class UserRspCallback implements Callback<RspModel<UserCard>> {
 
@@ -38,6 +37,8 @@ public class UserHelper {
             if (rspModel.success()) {
                 UserCard card = rspModel.getResult();
                 //数据库的操作，需要把usercard转换一个user
+                User user = card.build();
+                user.save();
 
                 //返回成功
                 callback.onDataLoaded(card);

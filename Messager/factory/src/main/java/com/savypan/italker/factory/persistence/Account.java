@@ -14,6 +14,7 @@ import com.savypan.italker.factory.model.db.User_Table;
 
 public class Account {
 
+    private static final String TAG = Account.class.getSimpleName();
     private static final String KEY_PUSH_ID = "KEY_PUSH_ID";
     private static final String KEY_IS_BOUND = "KEY_IS_BOUND";
     private static final String KEY_TOKEN = "KEY_TOKEN";
@@ -73,11 +74,12 @@ public class Account {
     public static boolean isCompleted() {
         if (isLogin()) {
             User user = getUser();
+            Log.e(TAG, user.toString());
             return !TextUtils.isEmpty(user.getDes())
                     && !TextUtils.isEmpty(user.getPortrait())
                     && user.getSex() != 0;
         }
-        return isLogin();
+        return false;
     }
 
     /***

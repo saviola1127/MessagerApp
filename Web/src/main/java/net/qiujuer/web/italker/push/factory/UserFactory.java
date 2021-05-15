@@ -1,15 +1,16 @@
 package net.qiujuer.web.italker.push.factory;
 
 import com.google.common.base.Strings;
-import net.qiujuer.web.italker.push.bean.api.account.AccountRspModel;
-import net.qiujuer.web.italker.push.bean.api.base.ResponseModel;
 import net.qiujuer.web.italker.push.bean.db.User;
+import net.qiujuer.web.italker.push.bean.db.UserFollow;
 import net.qiujuer.web.italker.push.utils.Hib;
 import net.qiujuer.web.italker.push.utils.TextUtil;
 import org.hibernate.Session;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Created by savypan
@@ -65,6 +66,13 @@ public class UserFactory {
         });
     }
 
+
+    public static User findById(String id) {
+
+        return Hib.query( session -> {
+            return session.get(User.class, id);
+        });
+    }
 
     /***
      * 更新用户信息到数据库
@@ -199,4 +207,92 @@ public class UserFactory {
     }
 
 
+    //获取联系人的列表
+    public static List<User> contacts(User self) {
+        //这里不能用self.getFollowing去获取关注的人的数据是因为之前是通过token获取的，
+        //在上一次的获取中，事务已经结束，并且不能在后续中得到，所以需要重新在一个事务中加载一次，这个就是懒加载
+        return Hib.query(session -> {
+            //重新加载一次用户信息到self中，和当前session绑定
+            session.load(self, self.getId());
+
+            //获取关注的人的集合
+            Set<UserFollow> followings = self.getFollowings();
+
+            return followings.stream().map(following -> following.getTarget()).collect(Collectors.toList());
+        });
+    }
+
+
+    /***
+     * 关注操作
+     * @param origin 关注发起人
+     * @param target 关注的被关注人
+     * @param alias 在本地的被关注人的备注别名
+     * @return 被关注人的信息
+     */
+    public static User follow(final User origin, final User target, final String alias) {
+        UserFollow follow = getUserFollow(origin, target);
+        if (follow != null) {
+            return follow.getTarget();
+        }
+
+        return Hib.query(session -> {
+            //想要操作懒加载的数据，再load一次
+            session.load(origin, origin.getId());
+            session.load(target, target.getId());
+
+            //我关注人的时候，同时他也关注我，所以需要添加两条数据
+            UserFollow originFollowing = new UserFollow();
+            originFollowing.setOrigin(origin);
+            originFollowing.setTarget(target);
+            originFollowing.setAlias(alias);
+
+            UserFollow targetFollowing = new UserFollow();
+            targetFollowing.setOrigin(target);
+            targetFollowing.setTarget(origin);
+
+            session.save(originFollowing);
+            session.save(targetFollowing);
+
+            return target;
+        });
+    }
+
+
+    /***
+     * 查询关注关系
+     * @param origin 发起者
+     * @param target 被关注人
+     * @return 中间类关系信息
+     */
+    public static UserFollow getUserFollow(final User origin, final User target) {
+        return Hib.query(session -> {
+            return (UserFollow) session.createQuery("from UserFollow where originId =:originId and targetId = : targetId")
+                    .setParameter("originId", origin.getId())
+                    .setParameter("targetId", target.getId())
+                    .setMaxResults(1)
+                    .uniqueResult();
+        });
+    }
+
+
+    /***
+     * 搜索联系人的实现
+     * @param name 查询的name，允许为空
+     * @return 查询到的用户集合，如果name为空，则返回最近的用户
+     */
+    public static List<User> search(String name) {
+        if (Strings.isNullOrEmpty(name)) {
+            //保证不能为null的情况下，减少后面的判断和额外的错误情况
+            name = "";
+        }
+        String searchName = "%" + name + "%";//模糊匹配
+
+        return Hib.query(session -> {
+            return session.createQuery("from User where lower(name) like :name and portrait is not null and description is not null")
+                    .setParameter("name", searchName)
+                    .setMaxResults(20)
+                    .list();
+        });
+    }
 }

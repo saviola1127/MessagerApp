@@ -84,6 +84,7 @@ public class User implements Principal {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<UserFollow> followers = new HashSet<>();
 
+
     //对应的字段为groupId...
     @JoinColumn(name = "ownerId")
     //懒加载集合，尽可能地不加载具体的数据
