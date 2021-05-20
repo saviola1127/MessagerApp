@@ -289,7 +289,7 @@ public class UserFactory {
         String searchName = "%" + name + "%";//模糊匹配
 
         return Hib.query(session -> {
-            return session.createQuery("from User where lower(name) like :name and portrait is not null and description is not null")
+            return (List<User>) session.createQuery("from User where lower(name) like :name and portrait is not null and description is not null")
                     .setParameter("name", searchName)
                     .setMaxResults(20)
                     .list();

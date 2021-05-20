@@ -20,6 +20,9 @@ public abstract class CommonFragment extends Fragment {
     protected Unbinder mUnbinder;
     protected PlaceHolderView mPlaceHolderView;
 
+    //是否是第一次初始化数据
+    protected boolean isFirstDataInit = true;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,6 +53,10 @@ public abstract class CommonFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (isFirstDataInit == true) {
+            isFirstDataInit = false;
+            initFirstData();
+        }
         initData();
     }
 
@@ -69,6 +76,15 @@ public abstract class CommonFragment extends Fragment {
     protected void initData() {
 
     }
+
+
+    /***
+     * init data of first time
+     */
+    protected void initFirstData() {
+
+    }
+
 
     /***
      * init related parameters

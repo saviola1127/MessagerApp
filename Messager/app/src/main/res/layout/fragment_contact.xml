@@ -5,10 +5,22 @@
     android:layout_height="match_parent"
     tools:context=".fragment.home.ContactFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_user"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Contact" />
+        android:paddingTop="@dimen/len_12"
+        android:paddingBottom="@dimen/len_12"
+        android:clipToPadding="false"
+        android:visibility="gone"
+        android:background="@drawable/bg_main_recycler"
+        android:elevation="1dp"
+        android:outlineProvider="bounds"
+        />
+
+    <com.savypan.italker.common.widget.EmptyView
+        android:id="@+id/ev"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>

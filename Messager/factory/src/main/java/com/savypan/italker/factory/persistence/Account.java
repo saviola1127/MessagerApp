@@ -143,4 +143,13 @@ public class Account {
     public static String getToken() {
         return token;
     }
+
+
+    /***
+     * 返回用户的id
+     * @return
+     */
+    public static String getUserId() {
+        return getUser().getId();
+    }
 }

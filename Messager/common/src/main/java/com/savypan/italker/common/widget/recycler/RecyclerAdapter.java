@@ -99,6 +99,16 @@ public abstract class RecyclerAdapter<T>
     }
 
 
+    /***
+     * 返回整个数据集合
+     * @return
+     */
+    public List<T> getItems() {
+        return mData;
+    }
+
+
+
     public void addData(T data) {
         mData.add(data);
         //notifyDataSetChanged();

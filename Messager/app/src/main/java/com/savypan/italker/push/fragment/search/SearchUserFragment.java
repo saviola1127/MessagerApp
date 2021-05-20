@@ -4,6 +4,7 @@ package com.savypan.italker.push.fragment.search;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ public class SearchUserFragment extends PresenterFragment<SearchContract.IPresen
     EmptyView emptyView;
 
     private RecyclerAdapter<UserCard> adapter;
+    private static final String TAG = SearchUserFragment.class.getSimpleName();
 
     @Override
     protected SearchContract.IPresenter initPresenter() {
@@ -124,12 +126,10 @@ public class SearchUserFragment extends PresenterFragment<SearchContract.IPresen
 
         @Override
         protected void onBind(UserCard data) {
-            Glide.with(SearchUserFragment.this)
-                    .load(data.getPortrait())
-                    .centerCrop()
-                    .into(portraitView);
+            portraitView.setup(Glide.with(SearchUserFragment.this), data);
 
             name.setText(data.getName());
+            Log.e(TAG, "Data details =>" + data.getName() + "/" + data.isFollowed());
             following.setEnabled(!data.isFollowed());
         }
 

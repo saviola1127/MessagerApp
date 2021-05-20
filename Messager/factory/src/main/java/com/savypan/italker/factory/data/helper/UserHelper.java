@@ -81,7 +81,6 @@ public class UserHelper {
                 callback.onDataFailed(R.string.data_network_error);
             }
         });
-
         return call;
     }
 
@@ -100,7 +99,6 @@ public class UserHelper {
                     user.save();
 
                     //TODO 通知联系人刷新
-
                     callback.onDataLoaded(userCard);
                 } else {
                     Factory.decodeResponseCode(rspModel, callback);
@@ -109,6 +107,30 @@ public class UserHelper {
 
             @Override
             public void onFailure(Call<RspModel<UserCard>> call, Throwable t) {
+                callback.onDataFailed(R.string.data_network_error);
+            }
+        });
+    }
+
+
+    //刷新联系人的操作
+    public static void refreshContacts(IDataSource.ICallback<List<UserCard>> callback) {
+        IRemoteService service = Network.remoteService();
+        //异步的请求
+        service.userContact().enqueue(new Callback<RspModel<List<UserCard>>>() {
+            @Override
+            public void onResponse(Call<RspModel<List<UserCard>>> call, Response<RspModel<List<UserCard>>> response) {
+                RspModel<List<UserCard>> rspModel = response.body();
+                if (response.isSuccessful()) {
+                    //返回搜索的数据即可
+                    callback.onDataLoaded(rspModel.getResult());
+                } else {
+                    Factory.decodeResponseCode(rspModel, callback);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RspModel<List<UserCard>>> call, Throwable t) {
                 callback.onDataFailed(R.string.data_network_error);
             }
         });

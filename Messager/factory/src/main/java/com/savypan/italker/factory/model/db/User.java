@@ -6,11 +6,14 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
+import com.savypan.italker.factory.model.IAuthor;
+import com.savypan.italker.factory.utils.DiffUiDataCallback;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Table(database = AppDatabase.class)
-public class User extends BaseModel {
+public class User extends BaseModel implements IAuthor, DiffUiDataCallback.UiDataDiffer<User> {
 
     public static final int SEX_MAN = 1;
     public static final int SEX_WOMAN = 2;
@@ -138,19 +141,21 @@ public class User extends BaseModel {
     }
 
     @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", portrait='" + portrait + '\'' +
-                ", des='" + des + '\'' +
-                ", sex=" + sex +
-                ", modifyAt=" + modifyAt +
-                ", followers=" + followers +
-                ", followings=" + followings +
-                ", isFollowed=" + isFollowed +
-                ", alias='" + alias + '\'' +
-                '}';
+    public int hashCode() {
+        return Objects.hash(id, name, phone, portrait, des, sex, modifyAt, followers, followings, isFollowed, alias);
+    }
+
+    @Override
+    public boolean isSame(User old) {
+        return Objects.equals(id, old.getId());
+    }
+
+    @Override
+    public boolean isUiContentSame(User old) {
+        //主要判断头像，名字等
+        return this == old || ( Objects.equals(name, old.getName())
+                        && Objects.equals(portrait, old.getPortrait())
+                        && Objects.equals(sex, old.getSex())
+                        && Objects.equals(isFollowed, old.isFollowed()));
     }
 }

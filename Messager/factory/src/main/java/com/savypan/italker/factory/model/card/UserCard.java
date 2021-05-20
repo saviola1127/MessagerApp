@@ -1,13 +1,14 @@
 package com.savypan.italker.factory.model.card;
 
 import com.google.gson.annotations.Expose;
+import com.savypan.italker.factory.model.IAuthor;
 import com.savypan.italker.factory.model.db.User;
 import com.savypan.italker.factory.persistence.Account;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 
-public class UserCard {
+public class UserCard implements IAuthor {
 
     private String id;
     private String name;

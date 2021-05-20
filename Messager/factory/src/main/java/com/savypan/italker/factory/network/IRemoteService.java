@@ -43,4 +43,8 @@ public interface IRemoteService {
     //用户关注的借口
     @PUT("user/follow/{userId}")
     Call<RspModel<UserCard>> userFollow(@Path("userId") String userId);
+
+    //用户搜索的接口
+    @GET("user/contact")
+    Call<RspModel<List<UserCard>>> userContact();
 }
