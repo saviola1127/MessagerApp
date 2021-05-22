@@ -19,6 +19,7 @@ import com.savypan.italker.factory.presenter.contact.FollowingPresenter;
 import com.savypan.italker.factory.presenter.search.SearchContract;
 import com.savypan.italker.factory.presenter.search.SearchUserPresenter;
 import com.savypan.italker.push.R;
+import com.savypan.italker.push.activities.PersonalActivity;
 import com.savypan.italker.push.activities.SearchActivity;
 
 import net.qiujuer.genius.ui.Ui;
@@ -133,11 +134,22 @@ public class SearchUserFragment extends PresenterFragment<SearchContract.IPresen
             following.setEnabled(!data.isFollowed());
         }
 
+        @OnClick(R.id.pv_portrait)
+        void onPortraitClick() {
+            //打开PersonalActivity
+            PersonalActivity.show(getContext(), mData.getId());
+        }
+
+
+
         @OnClick(R.id.im_following)
         void onFollowClick() {
             //发起关注
             presenter.follow(mData.getId());
         }
+
+
+
 
         @Override
         public void onFollowSuccess(UserCard card) {

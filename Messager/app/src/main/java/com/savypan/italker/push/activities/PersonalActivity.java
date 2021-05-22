@@ -20,21 +20,28 @@ import butterknife.OnClick;
 
 public class PersonalActivity extends ToolbarActivity {
     private static final String BOUND_KEY_ID = "BOUND_KEY_ID";
+    private static final String TAG = PersonalActivity.class.getSimpleName();
+
     private String userId;
 
     @BindView(R.id.im_header)
     ImageView mHeader;
+
     @BindView(R.id.im_portrait)
     PortraitView mPortrait;
 
     @BindView(R.id.txt_name)
     TextView mName;
+
     @BindView(R.id.txt_desc)
     TextView mDesc;
+
     @BindView(R.id.txt_follows)
     TextView mFollows;
+
     @BindView(R.id.txt_following)
     TextView mFollowing;
+
     @BindView(R.id.btn_say_hello)
     Button mSayHello;
 

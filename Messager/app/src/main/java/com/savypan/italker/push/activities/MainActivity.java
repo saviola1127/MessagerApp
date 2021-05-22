@@ -77,6 +77,8 @@ public class MainActivity extends CommonActivity
 
         Menu menu = navigationView.getMenu();
         menu.performIdentifierAction(R.id.action_home, 0);
+
+        portraitView.setup(Glide.with(this), Account.getUser());
     }
 
 
@@ -139,6 +141,13 @@ public class MainActivity extends CommonActivity
         }
         AccountActivity.show(this);
     }
+
+
+    @OnClick(R.id.icon_port)
+    void onPortraitClick() {
+        PersonalActivity.show(this, Account.getUserId());
+    }
+
 
     /***
      * handling menu switch and fragment commit
