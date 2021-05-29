@@ -1,26 +1,32 @@
 package com.savypan.italker.factory.model.card;
 
-import com.google.gson.annotations.Expose;
 import com.savypan.italker.factory.model.IAuthor;
 import com.savypan.italker.factory.model.db.User;
-import com.savypan.italker.factory.persistence.Account;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
+/**
+ * 用户卡片，用于接收服务器返回
+ * @version 1.0.0
+ */
 public class UserCard implements IAuthor {
-
     private String id;
     private String name;
     private String phone;
     private String portrait;
-    private String des;
+    private String desc;
     private int sex = 0;
 
-    private int followers;
-    private int followings;
+    // 用户关注人的数量
+    private int follows;
+
+    // 用户粉丝的数量
+    private int following;
+
+    // 我与当前User的关系状态，是否已经关注了这个人
     private boolean isFollowed;
 
+    // 用户信息最后的更新时间
     private Date modifyAt;
 
     public String getId() {
@@ -55,12 +61,12 @@ public class UserCard implements IAuthor {
         this.portrait = portrait;
     }
 
-    public String getDes() {
-        return des;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setDes(String des) {
-        this.des = des;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public int getSex() {
@@ -71,28 +77,28 @@ public class UserCard implements IAuthor {
         this.sex = sex;
     }
 
-    public int getFollowers() {
-        return followers;
+    public int getFollows() {
+        return follows;
     }
 
-    public void setFollowers(int followers) {
-        this.followers = followers;
+    public void setFollows(int follows) {
+        this.follows = follows;
     }
 
-    public int getFollowings() {
-        return followings;
+    public int getFollowing() {
+        return following;
     }
 
-    public void setFollowings(int followings) {
-        this.followings = followings;
+    public void setFollowing(int following) {
+        this.following = following;
     }
 
     public boolean isFollowed() {
         return isFollowed;
     }
 
-    public void setFollowed(boolean followed) {
-        isFollowed = followed;
+    public void setFollowed(boolean follow) {
+        isFollowed = follow;
     }
 
     public Date getModifyAt() {
@@ -103,20 +109,20 @@ public class UserCard implements IAuthor {
         this.modifyAt = modifyAt;
     }
 
-    //不能被GSON框架解析使用
+    // 缓存一个对应的User, 不能被GSON框架解析使用ø
     private transient User user;
 
     public User build() {
-        if(user == null) {
+        if (user == null) {
             User user = new User();
             user.setId(id);
             user.setName(name);
             user.setPortrait(portrait);
             user.setPhone(phone);
-            user.setDes(des);
+            user.setDes(desc);
             user.setFollowed(isFollowed);
-            user.setFollowers(followers);
-            user.setFollowings(followings);
+            user.setFollowers(follows);
+            user.setFollowings(following);
             user.setModifyAt(modifyAt);
             this.user = user;
         }
