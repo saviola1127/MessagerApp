@@ -113,5 +113,4 @@ public abstract class CommonFragment extends Fragment {
     public void setPlaceHolderView(PlaceHolderView placeHolderView) {
         this.mPlaceHolderView = placeHolderView;
     }
-
 }

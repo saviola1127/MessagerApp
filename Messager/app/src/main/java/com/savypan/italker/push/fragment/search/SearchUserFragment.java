@@ -141,15 +141,11 @@ public class SearchUserFragment extends PresenterFragment<SearchContract.IPresen
         }
 
 
-
         @OnClick(R.id.im_following)
         void onFollowClick() {
             //发起关注
             presenter.follow(mData.getId());
         }
-
-
-
 
         @Override
         public void onFollowSuccess(UserCard card) {

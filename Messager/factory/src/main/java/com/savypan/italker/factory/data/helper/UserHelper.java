@@ -1,5 +1,6 @@
 package com.savypan.italker.factory.data.helper;
 
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.savypan.italker.factory.Factory;
 import com.savypan.italker.factory.R;
 import com.savypan.italker.factory.data.IDataSource;
@@ -7,10 +8,12 @@ import com.savypan.italker.factory.model.api.RspModel;
 import com.savypan.italker.factory.model.api.user.UserUpdateModel;
 import com.savypan.italker.factory.model.card.UserCard;
 import com.savypan.italker.factory.model.db.User;
+import com.savypan.italker.factory.model.db.User_Table;
 import com.savypan.italker.factory.network.IRemoteService;
 import com.savypan.italker.factory.network.Network;
 import com.savypan.italker.factory.presenter.contact.FollowingPresenter;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -134,5 +137,77 @@ public class UserHelper {
                 callback.onDataFailed(R.string.data_network_error);
             }
         });
+    }
+
+
+    /***
+     * 从本地查询一个用户信息
+     * @param id
+     * @return
+     */
+    public static User findFromLocal(String id) {
+        return SQLite.select()
+                .from(User.class)
+                .where(User_Table.id.eq(id))
+                .querySingle();
+    }
+
+
+    /***
+     * 从网络查询一个用户信息
+     * @param id
+     * @return
+     */
+    public static User findFromNetwork(String id) {
+
+        IRemoteService remoteService = Network.remoteService();
+        Response<RspModel<UserCard>> response = null;
+        try {
+            response = remoteService.userFind(id).execute();
+            UserCard card = response.body().getResult();
+
+            if (card != null) {
+                //数据库刷新
+                // TODO 没有通知更改
+                User user = card.build();
+                user.save();
+                return user;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+    /***
+     * 搜索一个用户，优先本地缓存，
+     * 没有数据以后然后再从网络拉取
+     * @param id
+     * @return
+     */
+    public static User searchFromLocal(String id) {
+        User user = findFromLocal(id);
+        if (user == null) {
+            return findFromNetwork(id);
+        }
+
+        return user;
+    }
+
+    /***
+     * 搜索一个用户，优先从网络拉取
+     * @param id
+     * @return
+     */
+    public static User searchFromNetwork(String id) {
+        User user = findFromNetwork(id);
+        if (user == null) {
+            return findFromLocal(id);
+        }
+
+        return user;
     }
 }

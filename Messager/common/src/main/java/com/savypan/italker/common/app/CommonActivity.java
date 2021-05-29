@@ -11,12 +11,15 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
+import com.savypan.italker.common.widget.convention.PlaceHolderView;
+
 import java.util.List;
 
 import butterknife.ButterKnife;
 
 public abstract class CommonActivity extends AppCompatActivity {
 
+    protected PlaceHolderView mPlaceHolderView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,6 +29,9 @@ public abstract class CommonActivity extends AppCompatActivity {
 
         if (initArgs(getIntent().getExtras())) {
             setContentView(getContentLayoutId());
+
+            initBeforeAll();
+
             initWidget();
             initData();
         } else {
@@ -33,6 +39,15 @@ public abstract class CommonActivity extends AppCompatActivity {
         }
 
     }
+
+
+    /***
+     * 初始化控件调用之前
+     */
+    protected void initBeforeAll() {
+
+    }
+
 
     /***
      * init window related content
@@ -109,5 +124,13 @@ public abstract class CommonActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 设置占位布局
+     * @param placeHolderView 继承了占位布局规范的view
+     */
+    public void setPlaceHolderView(PlaceHolderView placeHolderView) {
+        this.mPlaceHolderView = placeHolderView;
     }
 }

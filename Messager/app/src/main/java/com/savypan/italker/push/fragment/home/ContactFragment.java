@@ -17,8 +17,10 @@ import com.savypan.italker.factory.presenter.contact.ContactContract;
 import com.savypan.italker.factory.presenter.contact.ContactPresenter;
 import com.savypan.italker.push.R;
 import com.savypan.italker.push.activities.MessageActivity;
+import com.savypan.italker.push.activities.PersonalActivity;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -119,6 +121,12 @@ implements ContactContract.IView {
             portraitView.setup(Glide.with(ContactFragment.this), data);
             name.setText(data.getName());
             desc.setText(data.getDes());
+        }
+
+        @OnClick(R.id.contact_pv)
+        void onPortraitClick() {
+            //打开PersonalActivity
+            PersonalActivity.show(getContext(), mData.getId());
         }
     }
 }

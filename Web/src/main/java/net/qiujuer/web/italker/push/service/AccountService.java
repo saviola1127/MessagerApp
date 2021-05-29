@@ -18,8 +18,7 @@ import javax.ws.rs.core.MediaType;
 //127.0.0.1/api/account
 @Path("/account")
 public class AccountService extends BaseService {
-
-
+    
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)

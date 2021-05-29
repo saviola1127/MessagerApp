@@ -47,4 +47,8 @@ public interface IRemoteService {
     //用户搜索的接口
     @GET("user/contact")
     Call<RspModel<List<UserCard>>> userContact();
+
+    //用户搜索的接口
+    @GET("user/{userId}")
+    Call<RspModel<UserCard>> userFind(@Path(("userId")) String userId);
 }

@@ -59,7 +59,7 @@ public class ContactPresenter extends BasePresenter<ContactContract.IView>
                     }
                 }).execute();
 
-        // 家在网络数据
+        // load 网络数据
         UserHelper.refreshContacts(new IDataSource.ICallback<List<UserCard>>() {
             @Override
             public void onDataFailed(int strId) {
@@ -88,7 +88,6 @@ public class ContactPresenter extends BasePresenter<ContactContract.IView>
 
                 //网络上的数据是新的数据，需要直接刷新到界面
                 //getView().getRecyclerViewAdapter().replace(users);
-
                 diff(users, getView().getRecyclerViewAdapter().getItems());
             }
         });
