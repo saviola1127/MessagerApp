@@ -10,7 +10,6 @@ import com.savypan.italker.factory.model.api.RspModel;
 import com.savypan.italker.factory.model.api.account.AccountRspModel;
 import com.savypan.italker.factory.model.api.account.LoginModel;
 import com.savypan.italker.factory.model.api.account.RegisterModel;
-import com.savypan.italker.factory.model.db.AppDatabase;
 import com.savypan.italker.factory.model.db.User;
 import com.savypan.italker.factory.network.IRemoteService;
 import com.savypan.italker.factory.network.Network;
@@ -77,7 +76,8 @@ public class AccountHelper {
                     Log.e(TAG, "response is successful and userId is " + user.getId());
                     Log.e(TAG, "response is successful and userId is " + user.getPhone());
                     //第一种方式直接保存
-                    user.save();
+                    DBHelper.save(User.class, user);
+                    //user.save();
                         /*
                         //第二种保存方式
                         FlowManager.getModelAdapter(User.class).save(user);

@@ -15,7 +15,6 @@ import java.util.Objects;
 /**
  * 本地的会话表
  *
- * @author qiujuer Email:qiujuer@live.cn
  * @version 1.0.0
  */
 @Table(database = AppDatabase.class)
@@ -42,9 +41,9 @@ public class Session extends BaseModel implements DiffUiDataCallback.UiDataDiffe
 
     }
 
-    public Session(Identify identify) {
-        this.id = identify.id;
-        this.receiverType = identify.type;
+    public Session(Identity Identity) {
+        this.id = Identity.id;
+        this.receiverType = Identity.type;
     }
 
     public Session(Message message) {
@@ -170,19 +169,27 @@ public class Session extends BaseModel implements DiffUiDataCallback.UiDataDiffe
      * 对于一条消息，我们提取主要部分，用于和Session进行对应
      *
      * @param message 消息Model
-     * @return 返回一个Session.Identify
+     * @return 返回一个Session.Identity
      */
-    public static Identify createSessionIdentify(Message message) {
-        Identify identify = new Identify();
+    public static Identity createSessionIdentity(Message message) {
+        Identity Identity = new Identity();
         if (message.getGroup() == null) {
-            identify.type = Message.RECEIVER_TYPE_NONE;
+            Identity.type = Message.RECEIVER_TYPE_NONE;
             User other = message.getOther();
-            identify.id = other.getId();
+            Identity.id = other.getId();
         } else {
-            identify.type = Message.RECEIVER_TYPE_GROUP;
-            identify.id = message.getGroup().getId();
+            Identity.type = Message.RECEIVER_TYPE_GROUP;
+            Identity.id = message.getGroup().getId();
         }
-        return identify;
+        return Identity;
+    }
+
+
+    /***
+     * 刷新会话对应的信息为当前最新的状态
+     */
+    public void refreshToNow() {
+
     }
 
 
@@ -194,7 +201,7 @@ public class Session extends BaseModel implements DiffUiDataCallback.UiDataDiffe
      * 紧跟着Type：存储的是具体的类型（人、群）
      * equals 和 hashCode 也是对两个字段进行判断
      */
-    public static class Identify {
+    public static class Identity {
         public String id;
         public int type;
 
@@ -204,9 +211,9 @@ public class Session extends BaseModel implements DiffUiDataCallback.UiDataDiffe
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
-            Identify identify = (Identify) o;
-            return type == identify.type
-                    && (id != null ? id.equals(identify.id) : identify.id == null);
+            Identity Identity = (Identity) o;
+            return type == Identity.type
+                    && (id != null ? id.equals(Identity.id) : Identity.id == null);
         }
 
         @Override

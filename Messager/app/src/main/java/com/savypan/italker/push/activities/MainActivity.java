@@ -129,7 +129,7 @@ public class MainActivity extends CommonActivity
     }
 
     @OnClick(R.id.btn_add)
-    void onGroupAdd() {
+    void onActionAdd() {
 
         //浮动按钮判断当前界面是群还是联系人
         //如果是群，则打开群界面
@@ -139,7 +139,6 @@ public class MainActivity extends CommonActivity
             //如果是人，就进入联系人界面；
             SearchActivity.show(this, SearchActivity.TYPE_USER);
         }
-        AccountActivity.show(this);
     }
 
 

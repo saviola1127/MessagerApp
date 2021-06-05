@@ -5,6 +5,7 @@ import com.savypan.italker.factory.model.api.account.AccountRspModel;
 import com.savypan.italker.factory.model.api.account.LoginModel;
 import com.savypan.italker.factory.model.api.account.RegisterModel;
 import com.savypan.italker.factory.model.api.user.UserUpdateModel;
+import com.savypan.italker.factory.model.card.GroupCard;
 import com.savypan.italker.factory.model.card.UserCard;
 
 import java.util.List;
@@ -51,4 +52,8 @@ public interface IRemoteService {
     //用户搜索的接口
     @GET("user/{userId}")
     Call<RspModel<UserCard>> userFind(@Path(("userId")) String userId);
+
+    // 拉取群信息
+    @GET("group/{groupId}")
+    Call<RspModel<GroupCard>> groupFind(@Path("groupId") String groupId);
 }

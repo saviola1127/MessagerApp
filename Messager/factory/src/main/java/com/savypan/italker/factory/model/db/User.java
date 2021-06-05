@@ -147,7 +147,7 @@ public class User extends BaseModel implements IAuthor, DiffUiDataCallback.UiDat
 
     @Override
     public boolean isSame(User old) {
-        return Objects.equals(id, old.getId());
+        return this == old || Objects.equals(id, old.id);
     }
 
     @Override

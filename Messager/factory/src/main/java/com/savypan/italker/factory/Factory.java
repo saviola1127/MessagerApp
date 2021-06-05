@@ -9,6 +9,12 @@ import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.savypan.italker.common.app.CommonApplication;
 import com.savypan.italker.factory.data.IDataSource;
+import com.savypan.italker.factory.data.group.GroupDispatcher;
+import com.savypan.italker.factory.data.group.IGroupCenter;
+import com.savypan.italker.factory.data.message.IMessageCenter;
+import com.savypan.italker.factory.data.message.MessageDispatcher;
+import com.savypan.italker.factory.data.user.IUserCenter;
+import com.savypan.italker.factory.data.user.UserDispatcher;
 import com.savypan.italker.factory.model.api.RspModel;
 import com.savypan.italker.factory.persistence.Account;
 import com.savypan.italker.factory.utils.DBFlowExclusionStrategy;
@@ -143,5 +149,30 @@ public class Factory {
         //数据库初始化
         FlowManager.init(new FlowConfig.Builder(getApplication()).openDatabasesOnInit(true).build());
         Account.load(getApplication());
+    }
+
+    /***
+     * 获取一个用户中心的实现类，
+     * @return 规范的接口
+     */
+    public static IUserCenter getUserCenter() {
+        return UserDispatcher.getInstance();
+    }
+
+    /***
+     * 获取一个消息中心的实现类
+     * @return
+     */
+    public static IMessageCenter getMsgCenter() {
+        return MessageDispatcher.getInstance();
+    }
+
+
+    /***
+     * 获取一个群组中心的实现类
+     * @return
+     */
+    public static IGroupCenter getGroupCenter() {
+        return GroupDispatcher.getInstance();
     }
 }

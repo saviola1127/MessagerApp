@@ -55,8 +55,7 @@ public class PushModel {
      */
     public static PushModel decode(String json) {
         Gson gson = Factory.getGson();
-        Type type = new TypeToken<List<Entity>>() {
-        }.getType();
+        Type type = new TypeToken<List<Entity>>() {}.getType();
 
         try {
             List<Entity> entities = gson.fromJson(json, type);
