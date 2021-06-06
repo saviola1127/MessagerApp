@@ -245,7 +245,7 @@ public class DBHelper {
      * 通知监听器 负责往外部回调数据结果刷新UI
      * @param <T>
      */
-    public interface IChangedListener<T> {
+    public interface IChangedListener<T extends BaseModel> {
         void onDataSaved(T... list);
         void onDataDeleted(T... list);
     }

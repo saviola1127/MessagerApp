@@ -44,12 +44,6 @@ public class UserHelper {
                 UserCard card = rspModel.getResult();
                 //唤起进行保存的操作
                 Factory.getUserCenter().dispatch(card);
-
-//                //数据库的操作，需要把usercard转换一个user
-//                User user = card.build();
-//                //异步统一的保存
-//                DBHelper.save(User.class, user);
-                //返回成功
                 callback.onDataLoaded(card);
             } else {
                 //错误情况下分配

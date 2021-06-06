@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Table(database = AppDatabase.class)
-public class User extends BaseModel implements IAuthor, DiffUiDataCallback.UiDataDiffer<User> {
+public class User extends BaseDBModel<User> implements IAuthor, DiffUiDataCallback.UiDataDiffer<User> {
 
     public static final int SEX_MAN = 1;
     public static final int SEX_WOMAN = 2;
@@ -142,8 +142,28 @@ public class User extends BaseModel implements IAuthor, DiffUiDataCallback.UiDat
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, phone, portrait, des, sex, modifyAt, followers, followings, isFollowed, alias);
+        return id != null? id.hashCode() : 0;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return sex == user.sex
+                && followers == user.followers
+                && followings == user.followings
+                && isFollowed == user.isFollowed
+                && Objects.equals(id, user.id)
+                && Objects.equals(name, user.name)
+                && Objects.equals(phone, user.phone)
+                && Objects.equals(portrait, user.portrait)
+                && Objects.equals(des, user.des)
+                && Objects.equals(alias, user.alias)
+                && Objects.equals(modifyAt, user.modifyAt);
+    }
+
 
     @Override
     public boolean isSame(User old) {
