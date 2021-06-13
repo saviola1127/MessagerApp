@@ -1,5 +1,6 @@
 package net.qiujuer.web.italker.push.bean.db;
 
+import net.qiujuer.web.italker.push.bean.api.message.MessageCreationModel;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -13,6 +14,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "TB_MESSAGE")
 public class Message {
+
+    public static final int RECEIVE_TYPE_NONE = 1; //人
+    public static final int RECEIVE_TYPE_GROUP = 2; //群
 
     public static final int TYPE_STRING = 1;
     public static final int TYPE_PIC = 2;
@@ -72,7 +76,32 @@ public class Message {
     @Column(nullable = false)
     private LocalDateTime updateAt = LocalDateTime.now();
 
-    //private Group group;
+    public Message() {
+
+    }
+
+    //一般情况下的点对点的消息构造函数
+    public Message(User sender, User receiver, MessageCreationModel model) {
+        this.id = model.getId();
+        this.content = model.getContent();
+        this.attach = model.getAttach();
+        this.type = model.getType();
+
+        this.sender = sender;
+        this.receiver = receiver;
+    }
+
+
+    //发送给群的消息构造函数
+    public Message(User sender, Group group, MessageCreationModel model) {
+        this.id = model.getId();
+        this.content = model.getContent();
+        this.attach = model.getAttach();
+        this.type = model.getType();
+
+        this.sender = sender;
+        this.group = group;
+    }
 
 
     public String getId() {
