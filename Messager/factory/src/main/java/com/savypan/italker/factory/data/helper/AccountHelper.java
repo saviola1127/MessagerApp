@@ -44,7 +44,7 @@ public class AccountHelper {
 
     public static void bindPushId(IDataSource.ICallback<User> callback) {
         String pushId = Account.getPushId();
-        Log.e(TAG, "start bindPushId now... and pushId =>" + pushId);
+        //Log.e(TAG, "start bindPushId now... and pushId =>" + pushId);
         if (TextUtils.isEmpty(pushId)) {
             return;
         }
@@ -73,8 +73,8 @@ public class AccountHelper {
                 if (accountRspModel != null) {
                     User user = accountRspModel.getUser();
 
-                    Log.e(TAG, "response is successful and userId is " + user.getId());
-                    Log.e(TAG, "response is successful and userId is " + user.getPhone());
+                    //Log.e(TAG, "response is successful and userId is " + user.getId());
+                    //Log.e(TAG, "response is successful and userId is " + user.getPhone());
                     //第一种方式直接保存
                     DBHelper.save(User.class, user);
                     //user.save();
@@ -92,16 +92,16 @@ public class AccountHelper {
                         }).build().execute();
                          */
 
-                    Log.e(TAG, "response is successful and user saved =>" + accountRspModel.isBound());
+                    //Log.e(TAG, "response is successful and user saved =>" + accountRspModel.isBound());
 
                     Account.login(accountRspModel);
 
-                    Log.e(TAG, "response is successful and login saved =>");
+                    //Log.e(TAG, "response is successful and login saved =>");
 
                     if (accountRspModel.isBound()) {
                         Account.setBound(true);
 
-                        Log.e(TAG, "response is successful and bound updated as true");
+                        //Log.e(TAG, "response is successful and bound updated as true");
 
                         if (callback != null) {
                             //数据库写入和缓存绑定 再返回
@@ -111,7 +111,7 @@ public class AccountHelper {
                 } else {
                     //callback.onDataLoaded(accountRspModel.getUser());
                     //绑定设备的触发
-                    Log.e(TAG, "response is successful and but resModel is null");
+                    //Log.e(TAG, "response is successful and but resModel is null");
                     bindPushId(callback);
                 }
 
@@ -125,7 +125,7 @@ public class AccountHelper {
 
         @Override
         public void onFailure(Call<RspModel<AccountRspModel>> call, Throwable t) {
-            Log.e(TAG, "exception =>" + t.getStackTrace().toString());
+            //Log.e(TAG, "exception =>" + t.getStackTrace().toString());
             if (callback != null) {
                 callback.onDataFailed(R.string.data_network_error);
             }

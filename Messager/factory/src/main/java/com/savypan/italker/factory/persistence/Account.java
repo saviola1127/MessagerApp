@@ -41,11 +41,11 @@ public class Account {
                 .putString(KEY_TOKEN, token)
                 .apply();
 
-        Log.e(TAG, "saved - pushId as " + pushId);
-        Log.e(TAG, "saved - isBound as " + isBound);
-        Log.e(TAG, "saved - account as " + account);
-        Log.e(TAG, "saved - userId as " + userId);
-        Log.e(TAG, "saved - token as " + token);
+//        Log.e(TAG, "saved - pushId as " + pushId);
+//        Log.e(TAG, "saved - isBound as " + isBound);
+//        Log.e(TAG, "saved - account as " + account);
+//        Log.e(TAG, "saved - userId as " + userId);
+//        Log.e(TAG, "saved - token as " + token);
     }
 
 
@@ -58,11 +58,11 @@ public class Account {
         userId = sp.getString(KEY_USER_ID, "");
         token = sp.getString(KEY_TOKEN, "");
 
-        Log.e(TAG, "loaded - pushId as " + pushId);
-        Log.e(TAG, "loaded - isBound as " + isBound);
-        Log.e(TAG, "loaded - account as " + account);
-        Log.e(TAG, "loaded - userId as " + userId);
-        Log.e(TAG, "loaded - token as " + token);
+//        Log.e(TAG, "loaded - pushId as " + pushId);
+//        Log.e(TAG, "loaded - isBound as " + isBound);
+//        Log.e(TAG, "loaded - account as " + account);
+//        Log.e(TAG, "loaded - userId as " + userId);
+//        Log.e(TAG, "loaded - token as " + token);
     }
 
 

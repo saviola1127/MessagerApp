@@ -149,7 +149,6 @@ public class Factory {
      * @param message
      */
     public static void dispatchPush (String message) {
-
         //首先检查登录状态
         if (!Account.isLogin()) {
             return;
@@ -160,11 +159,13 @@ public class Factory {
             return;
         }
 
-        Log.e(TAG, "Model.toString() =>" + model.toString());
+        //Log.e(TAG, "Model.toString() =>" + model.toString());
 
         //对推送集合进行遍历
         for (PushModel.Entity entity : model.getEntities())
         {
+            Log.e(TAG, "dispatchPush-Entity :" + entity.toString());
+
             switch (entity.type) {
                 case PushModel.ENTITY_TYPE_LOGOUT:
                     factory.logout();

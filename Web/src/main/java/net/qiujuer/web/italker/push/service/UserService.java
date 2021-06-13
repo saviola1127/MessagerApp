@@ -38,12 +38,22 @@ public class UserService extends BaseService {
         return ResponseModel.buildOk(userCard);
     }
 
-    @GET //get contacts
+    @GET //获取联系人
     @Path("/contact")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseModel<List<UserCard>> contact() {
         User self = getSelf();
+
+        /** below code is for testing message sending and receiving
+        PushModel model = new PushModel();
+        model.add(new PushModel.Entity(0, "hello IM"));
+
+        PushDispatcher dispatcher = new PushDispatcher();
+        dispatcher.add(self, model);
+        dispatcher.submit();
+         **/
+
 
         List<User> users = UserFactory.contacts(self);
         List<UserCard> userCards = users.stream()
