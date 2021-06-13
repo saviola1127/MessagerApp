@@ -25,20 +25,19 @@ import com.savypan.italker.factory.model.db.User_Table;
 import com.savypan.italker.factory.persistence.Account;
 import com.savypan.italker.factory.presenter.BasePresenter;
 import com.savypan.italker.factory.presenter.BaseRecyclerPresenter;
+import com.savypan.italker.factory.presenter.BaseSourcePresenter;
 import com.savypan.italker.factory.utils.DiffUiDataCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactPresenter extends BaseRecyclerPresenter<User, ContactContract.IView>
+public class ContactPresenter extends BaseSourcePresenter<User, User, ContactDataSource, ContactContract.IView>
         implements ContactContract.IPresenter, IDataSource.SuccessCallback<List<User>> {
 
     private static final String TAG = ContactContract.class.getSimpleName();
-    private DBDataSource source;
 
     public ContactPresenter(ContactContract.IView view) {
-        super(view);
-        source = new ContactRepository();
+        super(view, new ContactRepository());
     }
 
 
@@ -47,7 +46,7 @@ public class ContactPresenter extends BaseRecyclerPresenter<User, ContactContrac
         super.start();
 
         //进行本地的数据加载并添加监听
-        source.load(this);
+        //source.load(this);
 
         // load 网络数据
         UserHelper.refreshContacts();
@@ -84,11 +83,5 @@ public class ContactPresenter extends BaseRecyclerPresenter<User, ContactContrac
 
         //调用基类方法
         refreshDataWithDiff(result, users);
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
-        source.dispose();
     }
 }

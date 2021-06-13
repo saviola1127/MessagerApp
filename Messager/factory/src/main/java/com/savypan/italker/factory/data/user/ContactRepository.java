@@ -17,7 +17,7 @@ import java.util.List;
 /***
  * 联系人仓库
  */
-public class ContactRepository extends BaseDBRepository<User> {
+public class ContactRepository extends BaseDBRepository<User> implements ContactDataSource {
 
     private IDataSource.SuccessCallback callback;
     private final List<User> users = new LinkedList<>();
