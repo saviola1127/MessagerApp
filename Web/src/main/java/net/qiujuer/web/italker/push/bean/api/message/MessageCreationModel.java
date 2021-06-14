@@ -25,10 +25,6 @@ public class MessageCreationModel {
     @Expose
     private int type;
 
-    //发送者的ID不能为空
-    @Expose
-    private String senderId;
-
     //接收者，可为空（群组）
     @Expose
     private String receiverId;
@@ -69,14 +65,6 @@ public class MessageCreationModel {
         this.type = type;
     }
 
-    public String getSenderId() {
-        return senderId;
-    }
-
-    public void setSenderId(String senderId) {
-        this.senderId = senderId;
-    }
-
     public String getReceiverId() {
         return receiverId;
     }
@@ -98,7 +86,6 @@ public class MessageCreationModel {
         // Model 不允许为null，
         // 并且只需要具有一个及其以上的参数即可
         return model != null && !(Strings.isNullOrEmpty(model.id)
-                || Strings.isNullOrEmpty(model.senderId)
                 || Strings.isNullOrEmpty(model.content)
                 || Strings.isNullOrEmpty(model.receiverId))
                 && (model.receiverType == Message.RECEIVE_TYPE_NONE

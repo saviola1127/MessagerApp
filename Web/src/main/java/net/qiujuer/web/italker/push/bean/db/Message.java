@@ -63,7 +63,7 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "groupId")
     private Group group;
-    @Column(nullable = false, insertable = false, updatable = false)
+    @Column(insertable = false, updatable = false)
     private String groupId;
 
 
@@ -190,5 +190,13 @@ public class Message {
 
     public void setGroupId(String groupId) {
         this.groupId = groupId;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }
