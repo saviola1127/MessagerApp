@@ -34,7 +34,7 @@ public class Message extends BaseDBModel<Message> implements Serializable {
 
     // 消息状态
     public static final int STATUS_DONE = 0; // 正常状态
-    public static final int STATUS_CREATED = 1; // 创建状态
+    public static final int STATUS_CREATED = 1; // 创建状态 发送中
     public static final int STATUS_FAILED = 2; // 发送失败状态
 
     @PrimaryKey

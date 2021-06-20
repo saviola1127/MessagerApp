@@ -3,8 +3,10 @@ package net.qiujuer.web.italker.push.service;
 import net.qiujuer.web.italker.push.bean.api.base.ResponseModel;
 import net.qiujuer.web.italker.push.bean.api.message.MessageCreationModel;
 import net.qiujuer.web.italker.push.bean.card.MessageCard;
+import net.qiujuer.web.italker.push.bean.db.Group;
 import net.qiujuer.web.italker.push.bean.db.Message;
 import net.qiujuer.web.italker.push.bean.db.User;
+import net.qiujuer.web.italker.push.factory.GroupFactory;
 import net.qiujuer.web.italker.push.factory.MessageFactory;
 import net.qiujuer.web.italker.push.factory.PushFactory;
 import net.qiujuer.web.italker.push.factory.UserFactory;
@@ -70,9 +72,17 @@ public class MessageService extends BaseService{
 
     //发送到群
     private ResponseModel<MessageCard> pushToGroup(User sender, MessageCreationModel model) {
-        //TODO
+        Group group = GroupFactory.findById(sender, model.getReceiverId());
+        if (group == null) {
+            //没有找到群，可能你不是群成员，没有权限
+            return ResponseModel.buildNotFoundUserError("Can't find received group!");
+        }
 
-        return buildAndPushResponse(sender, null);
+        //添加到数据库
+        Message message = MessageFactory.add(sender, group, model);
+
+        //走通用的发送消息逻辑
+        return buildAndPushResponse(sender, message);
     }
 
 
