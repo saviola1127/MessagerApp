@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.savypan.italker.common.widget.PortraitView;
+import com.savypan.italker.factory.model.db.User;
+import com.savypan.italker.factory.presenter.mesage.ChatContract;
 import com.savypan.italker.push.R;
 import com.savypan.italker.push.activities.PersonalActivity;
 
@@ -20,7 +22,8 @@ import butterknife.OnClick;
  * 用户聊天界面
  * create an instance of this fragment.
  */
-public class UserChatFragment extends ChatFragment {
+public class UserChatFragment extends ChatFragment<User>
+implements ChatContract.IUserView {
 
     @BindView(R.id.im_pv)
     PortraitView portraitView;
@@ -99,5 +102,15 @@ public class UserChatFragment extends ChatFragment {
     @OnClick(R.id.im_pv)
     void onPortraitViewClick() {
         PersonalActivity.show(getContext(), receiverId);
+    }
+
+    @Override
+    protected ChatContract.IPresenter initPresenter() {
+        return null;
+    }
+
+    @Override
+    public void onInit(User user) {
+        //对和你聊天的用户信息进行初始化
     }
 }

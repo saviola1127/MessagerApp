@@ -16,12 +16,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.savypan.italker.common.app.CommonFragment;
+import com.savypan.italker.common.app.PresenterFragment;
 import com.savypan.italker.common.widget.PortraitView;
 import com.savypan.italker.common.widget.adapter.TextWaterAdapter;
 import com.savypan.italker.common.widget.recycler.RecyclerAdapter;
 import com.savypan.italker.factory.model.db.Message;
 import com.savypan.italker.factory.model.db.User;
 import com.savypan.italker.factory.persistence.Account;
+import com.savypan.italker.factory.presenter.mesage.ChatContract;
 import com.savypan.italker.push.R;
 import com.savypan.italker.push.activities.MessageActivity;
 import net.qiujuer.genius.ui.compat.UiCompat;
@@ -36,7 +38,9 @@ import butterknife.OnClick;
  * Use the {@link ChatFragment} factory method to
  * create an instance of this fragment.
  */
-public abstract class ChatFragment extends CommonFragment implements AppBarLayout.OnOffsetChangedListener {
+public abstract class ChatFragment<InitModel>
+        extends PresenterFragment<ChatContract.IPresenter>
+        implements AppBarLayout.OnOffsetChangedListener, ChatContract.IView<InitModel> {
 
     protected String receiverId;
     protected Adapter adapter;
@@ -73,6 +77,14 @@ public abstract class ChatFragment extends CommonFragment implements AppBarLayou
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new Adapter();
         recyclerView.setAdapter(adapter);
+    }
+
+
+    @Override
+    protected void initData() {
+        super.initData();
+
+        myPresenter.start();
     }
 
     //初始化toolbar
@@ -119,6 +131,9 @@ public abstract class ChatFragment extends CommonFragment implements AppBarLayou
     void onSubmitClick() {
         if (submit.isActivated()) {
             //发送消息
+            String content = message.getText().toString();
+            message.setText("");
+            myPresenter.transText(content);
         } else {
             onMoreClick();
         }
@@ -169,6 +184,18 @@ public abstract class ChatFragment extends CommonFragment implements AppBarLayou
                     return isRight? R.layout.cell_chat_text_right:R.layout.cell_chat_text_left;
             }
         }
+    }
+
+
+    @Override
+    public RecyclerAdapter<Message> getRecyclerViewAdapter() {
+        return adapter;
+    }
+
+
+    @Override
+    public void onAdapterDataChanged() {
+        //界面没有占位布局, RecyclerView是一直显示的，所以不需要做任何事情
     }
 
     //Holder的基类
