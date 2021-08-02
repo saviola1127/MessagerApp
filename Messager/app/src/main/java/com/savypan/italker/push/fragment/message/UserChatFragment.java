@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.savypan.italker.common.widget.PortraitView;
 import com.savypan.italker.factory.model.db.User;
 import com.savypan.italker.factory.presenter.mesage.ChatContract;
+import com.savypan.italker.factory.presenter.mesage.UserPresenter;
 import com.savypan.italker.push.R;
 import com.savypan.italker.push.activities.PersonalActivity;
 
@@ -106,11 +107,12 @@ implements ChatContract.IUserView {
 
     @Override
     protected ChatContract.IPresenter initPresenter() {
-        return null;
+        return new UserPresenter(this, receiverId);
     }
 
     @Override
     public void onInit(User user) {
         //对和你聊天的用户信息进行初始化
+
     }
 }
