@@ -39,4 +39,14 @@ implements BaseContract.IView<Presenter> {
     public void setPresenter(Presenter presenter) {
         myPresenter = presenter;
     }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (myPresenter != null) {
+            myPresenter.destroy();
+        }
+    }
 }

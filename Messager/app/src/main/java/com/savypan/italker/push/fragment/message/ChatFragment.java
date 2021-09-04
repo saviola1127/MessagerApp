@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -53,6 +55,9 @@ public abstract class ChatFragment<InitModel>
 
     @BindView(R.id.appBar)
     AppBarLayout appBarLayout;
+
+    @BindView(R.id.collapingToolbar)
+    CollapsingToolbarLayout collapsingToolbarLayout;
 
     @BindView(R.id.et_message)
     EditText message;
@@ -215,8 +220,10 @@ public abstract class ChatFragment<InitModel>
         @OnClick(R.id.im_pv)
         void onRepushClick() {
             //重新发送点击
-            if (loading != null) {
-                //必须是在右边，同时这样的发送失败，才能重新发送 TODO
+            if (loading != null && myPresenter.isRePush(mData)) {
+                //必须是在右边，同时这样的发送失败，才能重新发送
+                // 状态改变需要重新刷新界面信息
+                updateData(mData);
             }
         }
 
@@ -225,6 +232,7 @@ public abstract class ChatFragment<InitModel>
             User sender = data.getSender();
             sender.load(); //懒加载
 
+            //Log.e("TAG", "message on Display starts...");
             portraitView.setup(Glide.with(ChatFragment.this), sender);
 
             if (loading != null) {

@@ -4,8 +4,10 @@ import com.savypan.italker.factory.model.api.RspModel;
 import com.savypan.italker.factory.model.api.account.AccountRspModel;
 import com.savypan.italker.factory.model.api.account.LoginModel;
 import com.savypan.italker.factory.model.api.account.RegisterModel;
+import com.savypan.italker.factory.model.api.message.MessageCreationModel;
 import com.savypan.italker.factory.model.api.user.UserUpdateModel;
 import com.savypan.italker.factory.model.card.GroupCard;
+import com.savypan.italker.factory.model.card.MessageCard;
 import com.savypan.italker.factory.model.card.UserCard;
 
 import java.util.List;
@@ -56,4 +58,8 @@ public interface IRemoteService {
     // 拉取群信息
     @GET("group/{groupId}")
     Call<RspModel<GroupCard>> groupFind(@Path("groupId") String groupId);
+
+    //发送消息
+    @POST("msg")
+    Call<RspModel<MessageCard>> pushMessage(@Body MessageCreationModel model);
 }

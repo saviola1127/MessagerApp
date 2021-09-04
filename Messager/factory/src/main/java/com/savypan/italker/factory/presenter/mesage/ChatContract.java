@@ -10,7 +10,7 @@ public interface ChatContract {
         void transText(String content);
         void transAudio(String path);
         void transImage(String[] paths);
-        boolean isRetrans(Message message); //resend a message, return if it is being distributed
+        boolean isRePush(Message message); //resend a message, return if it is being distributed
     }
 
     interface IView<InitModel> extends BaseContract.IRecyclerView<Message, IPresenter> {

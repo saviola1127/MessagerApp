@@ -136,12 +136,15 @@ public class DBHelper {
             }
         }
 
+        //Log.e("TAG", "notifySaving starts...");
+
         // TODO 例外情况
         // 群成员变更，需要通知对应群信息更新
         // 消息变化，应该通知会话列表更新
         if (GroupMember.class.equals(tClass)) {
             updateGroup((GroupMember[]) models);
         } else if (Message.class.equals(tClass)) {
+            //Log.e("TAG", "notify message saving now");
             updateSession((Message[]) models);
         }
 

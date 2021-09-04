@@ -1,6 +1,7 @@
 package com.savypan.italker.factory.data.message;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.savypan.italker.factory.data.helper.DBHelper;
 import com.savypan.italker.factory.data.helper.GroupHelper;
@@ -61,7 +62,7 @@ public class MessageDispatcher implements IMessageCenter {
                 if (card == null || TextUtils.isEmpty(card.getSenderId())
                         || TextUtils.isEmpty(card.getId())
                         || TextUtils.isEmpty(card.getReceiverId())
-                        || TextUtils.isEmpty(card.getGroupId()))
+                        && TextUtils.isEmpty(card.getGroupId()))
                 {
                     continue;
                 }
@@ -81,6 +82,7 @@ public class MessageDispatcher implements IMessageCenter {
                     if (message.getStatus() == Message.STATUS_DONE) {
                         continue;
                     }
+
                     //如果服务端显示完成，则更新时间
                     if (card.getStatus() == Message.STATUS_DONE) {
                         //代表网络发送成功，此时需要修改时间为服务器的时间

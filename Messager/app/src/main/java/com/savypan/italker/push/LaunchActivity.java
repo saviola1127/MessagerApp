@@ -58,7 +58,7 @@ public class LaunchActivity extends CommonActivity {
         startAnimation(0.5f, new Runnable() {
             @Override
             public void run() {
-                Log.e(TAG, "initData - start waiting for pushID");
+                //Log.e(TAG, "initData - start waiting for pushID");
                 waitForPushId();
             }
         });
@@ -72,7 +72,7 @@ public class LaunchActivity extends CommonActivity {
         if (Account.isLogin()) {
             Log.e(TAG, "waitforpushId - starting");
             if (Account.isBound()) {
-                Log.e(TAG, "waitforpushId - isBound");
+                //Log.e(TAG, "waitforpushId - isBound");
                 skip();
                 return;
             }
@@ -80,7 +80,7 @@ public class LaunchActivity extends CommonActivity {
             //没有登录的情况下不允许绑定pushID
             Log.e(TAG, "waitforpushId - not login...");
             if (!TextUtils.isEmpty(Account.getPushId())) {
-                Log.e(TAG, "waitforpushId - getPushId now");
+                //Log.e(TAG, "waitforpushId - getPushId now");
                 skip();
                 return;
             }
@@ -89,7 +89,7 @@ public class LaunchActivity extends CommonActivity {
         getWindow().getDecorView().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Log.e(TAG, "waitforpushId - continue waiting");
+                //Log.e(TAG, "waitforpushId - continue waiting");
                 waitForPushId();
             }
          }, 500);
@@ -112,10 +112,10 @@ public class LaunchActivity extends CommonActivity {
         if (PermFragment.hasAllPerm(this, getSupportFragmentManager())) {
 
             if (Account.isLogin()) {
-                Log.e(TAG, "jumpOut - already login...");
+                //Log.e(TAG, "jumpOut - already login...");
                 MainActivity.show(this);
             } else {
-                Log.e(TAG, "jumpOut - not login...");
+                //Log.e(TAG, "jumpOut - not login...");
                 AccountActivity.show(this);
             }
 

@@ -2,6 +2,7 @@ package com.savypan.italker.push.fragment.message;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -9,6 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.savypan.italker.common.widget.PortraitView;
 import com.savypan.italker.factory.model.db.User;
 import com.savypan.italker.factory.presenter.mesage.ChatContract;
@@ -100,6 +105,21 @@ implements ChatContract.IUserView {
         userInfoMenuItem = toolbar.getMenu().findItem(R.id.action_person);
     }
 
+
+    @Override
+    protected void initWidget(View root) {
+        super.initWidget(root);
+
+        Glide.with(this)
+                .load(R.drawable.default_banner_chat).centerCrop()
+                .into(new ViewTarget<CollapsingToolbarLayout, GlideDrawable>(collapsingToolbarLayout) {
+                    @Override
+                    public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                        this.view.setContentScrim(resource.getCurrent());
+                    }
+                });
+    }
+
     @OnClick(R.id.im_pv)
     void onPortraitViewClick() {
         PersonalActivity.show(getContext(), receiverId);
@@ -113,6 +133,8 @@ implements ChatContract.IUserView {
     @Override
     public void onInit(User user) {
         //对和你聊天的用户信息进行初始化
-
+        // 对和你聊天的朋友的信息进行初始化操作
+        portraitView.setup(Glide.with(this), user.getPortrait());
+        collapsingToolbarLayout.setTitle(user.getName());
     }
 }

@@ -23,7 +23,7 @@ public class MessageCreationModel {
 
     //消息类型
     @Expose
-    private int type;
+    private int type = Message.TYPE_STRING;
 
     //接收者，可为空（群组）
     @Expose

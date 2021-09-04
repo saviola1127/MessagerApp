@@ -18,7 +18,6 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.IView> imp
         super(view);
     }
 
-
     @Override
     public void start() {
         super.start();
@@ -39,6 +38,11 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.IView> imp
     }
 
 
+    /***
+     * 界面更新数据
+     * @param view
+     * @param user
+     */
     private void onLoaded(final PersonalContract.IView view, final User user) {
         this.user = user;
 
@@ -53,6 +57,12 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.IView> imp
         Run.onUiAsync(new Action() {
             @Override
             public void call() {
+
+                final PersonalContract.IView view1 = getView();
+                if (view1 == null) {
+                    return;
+                }
+
                 view.onLoadingDone(user);
                 view.updateFollowingStatus(isFollowed);
                 view.updateHellowStatus(isAllowedSayHello);
