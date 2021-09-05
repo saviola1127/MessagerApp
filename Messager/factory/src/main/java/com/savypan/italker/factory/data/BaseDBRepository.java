@@ -19,7 +19,7 @@ import java.util.List;
 public abstract class BaseDBRepository<T extends BaseDBModel<T>> implements DBDataSource<T>, DBHelper.IChangedListener<T>,
         QueryTransaction.QueryResultListCallback<T> {
 
-    private final List<T> dataSet = new LinkedList<T>();
+    protected final LinkedList<T> dataSet = new LinkedList<T>();
     private SuccessCallback<List<T>> callback;
     private Class<T> tClass;
 
@@ -101,7 +101,7 @@ public abstract class BaseDBRepository<T extends BaseDBModel<T>> implements DBDa
     }
 
 
-    private void insertOrUpdate(T data) {
+    protected void insertOrUpdate(T data) {
         int index = indexOf(data);
         if (index >= 0) {
             // 替换操作
@@ -113,7 +113,7 @@ public abstract class BaseDBRepository<T extends BaseDBModel<T>> implements DBDa
     }
 
 
-    private void insert(T data) {
+    protected void insert(T data) {
         dataSet.add(data);
     }
 

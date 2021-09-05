@@ -77,11 +77,11 @@ public class AppMessageReceiverService extends GTIntentService {
     private void onClientInit(String cid) {
         // 设置设备Id
         Account.setPushId(cid);
-        Log.e(TAG, "onClientInit - cid =>" + cid);
+        //Log.e(TAG, "onClientInit - cid =>" + cid);
         if (Account.isLogin()) {
             // 账户登录状态，进行一次PushId绑定
             // 没有登录是不能绑定PushId的
-            Log.e(TAG, "onClientInit - isLogin");
+            //Log.e(TAG, "onClientInit - isLogin");
             AccountHelper.bindPushId(null);
         }
     }

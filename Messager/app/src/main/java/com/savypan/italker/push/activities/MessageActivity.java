@@ -14,6 +14,8 @@ import android.view.View;
 import com.savypan.italker.common.app.CommonActivity;
 import com.savypan.italker.factory.model.IAuthor;
 import com.savypan.italker.factory.model.db.Group;
+import com.savypan.italker.factory.model.db.Message;
+import com.savypan.italker.factory.model.db.Session;
 import com.savypan.italker.push.R;
 import com.savypan.italker.push.fragment.message.GroupChatFragment;
 import com.savypan.italker.push.fragment.message.UserChatFragment;
@@ -42,6 +44,24 @@ public class MessageActivity extends CommonActivity {
         intent.putExtra(KEY_RECEIVER_GROUP, false);
         context.startActivity(intent);
         //context.startActivity(new Intent(context, MessageActivity.class));
+    }
+
+
+    /***
+     * 通过session发起聊天
+     * @param context
+     * @param session
+     */
+    public static void show(Context context, Session session) {
+        if (session == null || context == null
+                || TextUtils.isEmpty(session.getId())) {
+            return;
+        }
+
+        Intent intent = new Intent(context, MessageActivity.class);
+        intent.putExtra(KEY_RECEIVER_ID, session.getId());
+        intent.putExtra(KEY_RECEIVER_GROUP, session.getReceiverType() == Message.RECEIVER_TYPE_GROUP);
+        context.startActivity(intent);
     }
 
 

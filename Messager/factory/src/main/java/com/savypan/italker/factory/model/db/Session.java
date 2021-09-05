@@ -280,7 +280,6 @@ public class Session extends BaseDBModel<Session> {
         public String id;
         public int type;
 
-
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
